@@ -1,11 +1,34 @@
-// 구글 소셜 로그인 처리를 위한 로그인 페이지입니다.
-// 나중에 OAuth2 인증 및 리다이렉션 처리를 추가합니다.
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './Login.module.css';
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 이미 로그인된 사용자는 홈으로 리다이렉트
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const handleLogin = () => {
+    // 환경 변수에서 API URL을 가져옴
+    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/google`;
+  };
+
   return (
-    <div>
-      {/* 구글 로그인 버튼 위치 */}
-      <h1>Login Page</h1>
+    <div className={styles.pageContainer}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>로그인</h1>
+        <p className={styles.description}>서비스를 이용하기 위해 로그인해주세요.</p>
+
+        <button type="button" className={styles.googleButton} onClick={handleLogin}>
+          <span className={styles.googleIcon}>G</span>
+          구글 계정으로 로그인
+        </button>
+      </div>
     </div>
   );
 };

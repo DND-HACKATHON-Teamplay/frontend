@@ -1,0 +1,53 @@
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  margin: 4rem auto;
+  background-color: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.welcomeSection,
+.loginSection {
+  margin-top: 2rem;
+}
+
+.username {
+  font-weight: bold;
+  color: #0bec12;
+}
+
+.loginButton,
+.logoutButton {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginButton {
+  background-color: #0bec12;
+  color: white;
+}
+
+.logoutButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.loginButton:hover {
+  background-color: #0ace10;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(10, 206, 16, 0.2);
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+}
