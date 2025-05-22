@@ -1,3 +1,5 @@
+import { tokenUtils } from '../utils/auth';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://bb-konkuk.shop';
 
 // API 응답 타입 정의
@@ -9,7 +11,7 @@ export interface ApiResponse<T = unknown> {
 
 // 공통 fetch 함수
 async function apiRequest<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
-  const token = localStorage.getItem('accessToken');
+  const token = tokenUtils.getToken(); // 유틸리티 함수 사용
 
   const config: RequestInit = {
     headers: {
@@ -24,11 +26,20 @@ async function apiRequest<T>(endpoint: string, options: RequestInit = {}): Promi
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
 
     if (response.ok) {
-      return { success: true };
+      // 응답 데이터가 있는 경우 파싱
+      let data: unknown;
+      try {
+        const text = await response.text();
+        data = text ? JSON.parse(text) : null;
+      } catch {
+        data = null;
+      }
+      return { success: true, data: data as T };
     }
+
     return {
       success: false,
-      message: `API 오류: ${response.status}`,
+      message: `API 오류: ${response.status} ${response.statusText}`,
     };
   } catch (error) {
     console.error('API 요청 실패:', error);
@@ -48,8 +59,8 @@ export const authAPI = {
     });
   },
 
-  // 사용자 정보 조회 (추후 구현 시)
-  getUserInfo: async (): Promise<ApiResponse> => {
+  // 사용자 정보 조회
+  getUserInfo: async (): Promise<ApiResponse<UserInfo>> => {
     return apiRequest('/api/v1/member/info', {
       method: 'GET',
     });
@@ -68,3 +79,11 @@ export const oauthAPI = {
     return `${API_BASE_URL}/oauth2/authorization/kakao`;
   },
 };
+
+// 타입 정의
+export interface UserInfo {
+  id: number;
+  email: string;
+  name: string;
+  // 필요에 따라 추가
+}
