@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { oauthAPI } from '../../services/api';
+import { tokenUtils } from '../../utils/auth';
 import styles from './Login.module.css';
 
 const Login = () => {
@@ -7,20 +9,17 @@ const Login = () => {
 
   useEffect(() => {
     // 이미 로그인된 사용자는 홈으로 리다이렉트
-    const token = localStorage.getItem('accessToken');
-    if (token) {
+    if (tokenUtils.isLoggedIn()) {
       navigate('/');
     }
   }, [navigate]);
 
   const handleGoogleLogin = () => {
-    // 구글 OAuth 로그인
-    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/google`;
+    window.location.href = oauthAPI.getGoogleLoginUrl();
   };
 
   const handleKakaoLogin = () => {
-    // 카카오 OAuth 로그인
-    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/kakao`;
+    window.location.href = oauthAPI.getKakaoLoginUrl();
   };
 
   return (
