@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../services/api';
+import type { UserInfo } from '../../services/api';
 import { tokenUtils } from '../../utils/auth';
 import styles from './Home.module.css';
 
@@ -9,14 +10,32 @@ const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 로그인 상태 확인
-    if (tokenUtils.isLoggedIn()) {
-      setIsLoggedIn(true);
-      // 실제로는 API 호출로 사용자 정보를 가져와야 함
-      setUsername('사용자');
-    }
+    const checkAuthStatus = async () => {
+      if (tokenUtils.isLoggedIn()) {
+        setIsLoggedIn(true);
+
+        // 사용자 정보 조회 시도
+        try {
+          const result = await authAPI.getUserInfo();
+          if (result.success && result.data) {
+            const userInfo = result.data as UserInfo;
+            setUsername(userInfo.name || userInfo.email || '사용자');
+          } else {
+            // API 실패 시 기본값 사용
+            setUsername('사용자');
+          }
+        } catch (error) {
+          console.error('사용자 정보 조회 실패:', error);
+          setUsername('사용자');
+        }
+      }
+      setIsLoading(false);
+    };
+
+    checkAuthStatus();
   }, []);
 
   const handleGoToLogin = () => {
@@ -51,6 +70,16 @@ const Home = () => {
       navigate('/login');
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="page-wrapper">
+        <div className={styles.container}>
+          <h1>🔄 로딩 중...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-wrapper">
