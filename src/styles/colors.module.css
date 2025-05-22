@@ -1,0 +1,195 @@
+/* CSS Variables 정의 */
+:root {
+  /* Base Colors */
+  --color-base-black: #000000;
+  --color-base-white: #ffffff;
+
+  /* Inverse */
+  --color-inverse-black: #000000;
+  --color-inverse-white: #ffffff;
+
+  /* Layer */
+  --color-layer-elevated: #ffffff;
+  --color-layer-base: #f3f4f8;
+  --color-layer-dim: #00000066;
+
+  /* Border */
+  --color-border-normal: #e7e9ec;
+  --color-border-neutral: #b1b8c0;
+
+  /* Container */
+  --color-container-normal: #fafafb;
+  --color-container-neutral: #f3f4f8;
+  --color-container-alternative: #e7e9ec;
+  --color-container-disabled: #e7e9ec;
+  --color-container-selected: #f2f3f5;
+  --color-container-selected-hover: #f2f3f5;
+
+  /* Contents */
+  --color-contents-normal: #b1b8c0;
+  --color-contents-neutral: #6d7582;
+
+  /* Label */
+  --color-label-strong: #000000;
+  --color-label-normal: #151719;
+  --color-label-neutral: #505866;
+  --color-label-alternative: #b1b8c0;
+  --color-label-disabled: #b1b8c0;
+
+  /* Decrease */
+  --color-decrease: #3f94ee;
+  --color-decrease-container: #e4f2fd;
+
+  /* Negative */
+  --color-negative-error: #e6533e;
+  --color-negative-error-container: #fdecee;
+
+  /* Positive */
+  --color-positive: #0bbd49;
+  --color-positive-container: #e6f7e9;
+
+  /* Primary */
+  --color-primary: #fbc926;
+  --color-primary-container: #fdf7dd;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --color-base-black: #ffffff;
+  --color-base-white: #000000;
+
+  --color-layer-elevated: #1d1d24;
+  --color-layer-base: #0f1217;
+
+  --color-border-normal: #3f3f4a;
+  --color-border-neutral: #62626c;
+
+  --color-container-normal: #18171c;
+  --color-container-neutral: #1d1d24;
+  --color-container-alternative: #272730;
+  --color-container-disabled: #3f3f4a;
+  --color-container-selected: #2c2c34;
+
+  --color-contents-normal: #62626c;
+  --color-contents-neutral: #c5c5ca;
+
+  --color-label-strong: #ffffff;
+  --color-label-normal: #f2f3f5;
+  --color-label-neutral: #9e9ea2;
+  --color-label-alternative: #62626c;
+  --color-label-disabled: #62626c;
+
+  --color-decrease-container: #10263d;
+  --color-negative-error-container: #3d130c;
+  --color-positive-container: #003d0d;
+  --color-primary-container: #363221;
+}
+
+/* Color Classes */
+.baseBlack {
+  color: var(--color-base-black);
+}
+
+.baseWhite {
+  color: var(--color-base-white);
+}
+
+.layerElevated {
+  background-color: var(--color-layer-elevated);
+}
+
+.layerBase {
+  background-color: var(--color-layer-base);
+}
+
+.layerDim {
+  background-color: var(--color-layer-dim);
+}
+
+.borderNormal {
+  border-color: var(--color-border-normal);
+}
+
+.borderNeutral {
+  border-color: var(--color-border-neutral);
+}
+
+.containerNormal {
+  background-color: var(--color-container-normal);
+}
+
+.containerNeutral {
+  background-color: var(--color-container-neutral);
+}
+
+.containerAlternative {
+  background-color: var(--color-container-alternative);
+}
+
+.containerDisabled {
+  background-color: var(--color-container-disabled);
+}
+
+.containerSelected {
+  background-color: var(--color-container-selected);
+}
+
+.contentsNormal {
+  color: var(--color-contents-normal);
+}
+
+.contentsNeutral {
+  color: var(--color-contents-neutral);
+}
+
+.labelStrong {
+  color: var(--color-label-strong);
+}
+
+.labelNormal {
+  color: var(--color-label-normal);
+}
+
+.labelNeutral {
+  color: var(--color-label-neutral);
+}
+
+.labelAlternative {
+  color: var(--color-label-alternative);
+}
+
+.labelDisabled {
+  color: var(--color-label-disabled);
+}
+
+.decrease {
+  color: var(--color-decrease);
+}
+
+.decreaseContainer {
+  background-color: var(--color-decrease-container);
+}
+
+.negativeError {
+  color: var(--color-negative-error);
+}
+
+.negativeErrorContainer {
+  background-color: var(--color-negative-error-container);
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.positiveContainer {
+  background-color: var(--color-positive-container);
+}
+
+.primary {
+  color: var(--color-primary);
+}
+
+.primaryContainer {
+  background-color: var(--color-primary-container);
+}

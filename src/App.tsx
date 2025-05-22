@@ -3,6 +3,7 @@ import Login from './pages/Login/Login';
 import OAuthCallback from './pages/OAuthCallback/OAuthCallback';
 import Home from './pages/Home/Home';
 import './App.css';
+import './styles/globals.css';
 
 function App() {
   return (

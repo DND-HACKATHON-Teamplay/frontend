@@ -1,0 +1,484 @@
+/* Display */
+.displayD1 {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  letter-spacing: -3px;
+  line-height: 72px;
+}
+
+.displayD2Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: -3px;
+  line-height: 52px;
+}
+
+.displayD2Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  letter-spacing: -3px;
+  line-height: 52px;
+}
+
+.displayD2Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  letter-spacing: -3px;
+  line-height: 52px;
+}
+
+/* Heading */
+.headingH1Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: -3px;
+  line-height: 50px;
+}
+
+.headingH1Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -3px;
+  line-height: 50px;
+}
+
+.headingH1Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: -3px;
+  line-height: 50px;
+}
+
+.headingH2Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -1.5px;
+  line-height: 34px;
+}
+
+.headingH2Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -1.5px;
+  line-height: 34px;
+}
+
+.headingH3Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -1px;
+  line-height: 28px;
+}
+
+.headingH3Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -1px;
+  line-height: 28px;
+}
+
+.headingH3Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: -1px;
+  line-height: 28px;
+}
+
+.headingH4Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+.headingH4Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+.headingH4Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+/* Body */
+.body1NormalBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 24px;
+}
+
+.body1NormalMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 24px;
+}
+
+.body1NormalRegular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 24px;
+}
+
+.body1ReadingBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+.body1ReadingMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+.body1ReadingRegular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -1px;
+  line-height: 26px;
+}
+
+.body2NormalBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -1px;
+  line-height: 22px;
+}
+
+.body2NormalMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -1px;
+  line-height: 22px;
+}
+
+.body2ReadingBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -1px;
+  line-height: 24px;
+}
+
+.body2ReadingMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -1px;
+  line-height: 24px;
+}
+
+/* Label */
+.labelNormalBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 20px;
+}
+
+.labelNormalMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 20px;
+}
+
+.labelNormalRegular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 20px;
+}
+
+.labelReadingBold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 22px;
+}
+
+.labelReadingMedium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 22px;
+}
+
+.labelReadingRegular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -1px;
+  line-height: 22px;
+}
+
+.label2Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+  line-height: 20px;
+}
+
+.label2Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+  line-height: 20px;
+}
+
+.label2Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+  line-height: 20px;
+}
+
+/* Caption */
+.caption1Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  line-height: 16px;
+}
+
+.caption1Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  line-height: 16px;
+}
+
+.caption1Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  line-height: 16px;
+}
+
+.caption2Bold {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: -0.5px;
+  line-height: 14px;
+}
+
+.caption2Medium {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: -0.5px;
+  line-height: 14px;
+}
+
+.caption2Regular {
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: -0.5px;
+  line-height: 14px;
+}
