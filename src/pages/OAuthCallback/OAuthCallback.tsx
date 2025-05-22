@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { tokenUtils } from '../../utils/auth';
 import styles from './OAuthCallback.module.css';
 
 const OAuthCallback = () => {
@@ -12,8 +13,8 @@ const OAuthCallback = () => {
 
     if (accessToken) {
       try {
-        // 토큰 저장
-        localStorage.setItem('accessToken', accessToken);
+        // 토큰 저장 (유틸리티 함수 사용)
+        tokenUtils.setToken(accessToken);
 
         setStatus('로그인 성공! 메인 페이지로 이동합니다.');
 
