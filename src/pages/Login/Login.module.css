@@ -28,7 +28,9 @@
   margin-bottom: 2rem;
 }
 
-.googleButton {
+/* 공통 버튼 스타일 */
+.googleButton,
+.kakaoButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,10 +39,15 @@
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 6px;
-  background-color: white;
-  color: #444;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-bottom: 1rem;
+}
+
+/* 구글 버튼 */
+.googleButton {
+  background-color: white;
+  color: #444;
 }
 
 .googleButton:hover {
@@ -60,4 +67,30 @@
   border-radius: 50%;
   font-weight: bold;
   color: #4285f4;
+}
+
+/* 카카오 버튼 */
+.kakaoButton {
+  background-color: #fee500;
+  color: #3c1e1e;
+  border-color: #fee500;
+}
+
+.kakaoButton:hover {
+  background-color: #ffeb3b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(254, 229, 0, 0.3);
+}
+
+.kakaoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  background-color: #3c1e1e;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #fee500;
 }

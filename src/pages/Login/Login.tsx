@@ -13,9 +13,14 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const handleLogin = () => {
-    // 환경 변수에서 API URL을 가져옴
+  const handleGoogleLogin = () => {
+    // 구글 OAuth 로그인
     window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/google`;
+  };
+
+  const handleKakaoLogin = () => {
+    // 카카오 OAuth 로그인
+    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/kakao`;
   };
 
   return (
@@ -24,9 +29,14 @@ const Login = () => {
         <h1 className={styles.title}>로그인</h1>
         <p className={styles.description}>서비스를 이용하기 위해 로그인해주세요.</p>
 
-        <button type="button" className={styles.googleButton} onClick={handleLogin}>
+        <button type="button" className={styles.googleButton} onClick={handleGoogleLogin}>
           <span className={styles.googleIcon}>G</span>
           구글 계정으로 로그인
+        </button>
+
+        <button type="button" className={styles.kakaoButton} onClick={handleKakaoLogin}>
+          <span className={styles.kakaoIcon}>K</span>
+          카카오 계정으로 로그인
         </button>
       </div>
     </div>
