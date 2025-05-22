@@ -1,31 +1,85 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../../services/api';
+import type { UserInfo } from '../../services/api';
+import { tokenUtils } from '../../utils/auth';
 import styles from './Home.module.css';
 
 const Home = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 로그인 상태 확인
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setIsLoggedIn(true);
-      // 실제로는 토큰을 디코딩하거나 API 호출로 사용자 정보를 가져와야 함
-      setUsername('사용자');
-    }
+    const checkAuthStatus = async () => {
+      if (tokenUtils.isLoggedIn()) {
+        setIsLoggedIn(true);
+
+        // 사용자 정보 조회 시도
+        try {
+          const result = await authAPI.getUserInfo();
+          if (result.success && result.data) {
+            const userInfo = result.data as UserInfo;
+            setUsername(userInfo.name || userInfo.email || '사용자');
+          } else {
+            // API 실패 시 기본값 사용
+            setUsername('사용자');
+          }
+        } catch (error) {
+          console.error('사용자 정보 조회 실패:', error);
+          setUsername('사용자');
+        }
+      }
+      setIsLoading(false);
+    };
+
+    checkAuthStatus();
   }, []);
 
   const handleGoToLogin = () => {
     navigate('/login');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    setIsLoggedIn(false);
-    setUsername('');
+  const handleLogout = async () => {
+    if (!tokenUtils.isLoggedIn()) {
+      navigate('/login');
+      return;
+    }
+
+    setIsLoggingOut(true);
+
+    try {
+      // API 서비스를 통한 로그아웃 요청
+      const result = await authAPI.logout();
+
+      if (result.success) {
+        console.log('서버에서 로그아웃 성공');
+      } else {
+        console.warn('서버 로그아웃 실패:', result.message);
+      }
+    } catch (error) {
+      console.error('로그아웃 중 예외 발생:', error);
+    } finally {
+      // 성공/실패 관계없이 로컬 상태 정리
+      tokenUtils.removeToken();
+      setIsLoggedIn(false);
+      setUsername('');
+      setIsLoggingOut(false);
+      navigate('/login');
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="page-wrapper">
+        <div className={styles.container}>
+          <h1>🔄 로딩 중...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-wrapper">
@@ -38,13 +92,18 @@ const Home = () => {
               <span className={styles.username}>{username}</span>님, 환영합니다!
             </p>
             <p>성공적으로 로그인되었습니다.</p>
-            <button type="button" className={styles.logoutButton} onClick={handleLogout}>
-              🔓 로그아웃
+            <button
+              type="button"
+              className={styles.logoutButton}
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+            >
+              {isLoggingOut ? '🔄 로그아웃 중...' : '🔓 로그아웃'}
             </button>
           </div>
         ) : (
           <div className={styles.loginSection}>
-            <p>구글 로그인 후 이용 가능한 서비스입니다.</p>
+            <p>구글 또는 카카오 로그인 후 이용 가능한 서비스입니다.</p>
             <button type="button" className={styles.loginButton} onClick={handleGoToLogin}>
               🔐 로그인 하러 가기
             </button>
