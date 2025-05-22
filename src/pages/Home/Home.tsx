@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../../services/api';
+import { tokenUtils } from '../../utils/auth';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -10,10 +12,9 @@ const Home = () => {
 
   useEffect(() => {
     // 로그인 상태 확인
-    const token = localStorage.getItem('accessToken');
-    if (token) {
+    if (tokenUtils.isLoggedIn()) {
       setIsLoggedIn(true);
-      // 실제로는 토큰을 디코딩하거나 API 호출로 사용자 정보를 가져와야 함
+      // 실제로는 API 호출로 사용자 정보를 가져와야 함
       setUsername('사용자');
     }
   }, []);
@@ -23,10 +24,7 @@ const Home = () => {
   };
 
   const handleLogout = async () => {
-    const token = localStorage.getItem('accessToken');
-
-    if (!token) {
-      // 토큰이 없으면 바로 로그인 페이지로
+    if (!tokenUtils.isLoggedIn()) {
       navigate('/login');
       return;
     }
@@ -34,34 +32,22 @@ const Home = () => {
     setIsLoggingOut(true);
 
     try {
-      // 백엔드 로그아웃 API 호출
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://bb-konkuk.shop';
-      const response = await fetch(`${apiUrl}/api/v1/member/logout`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      // API 서비스를 통한 로그아웃 요청
+      const result = await authAPI.logout();
 
-      if (response.ok) {
+      if (result.success) {
         console.log('서버에서 로그아웃 성공');
-      } else if (response.status === 500) {
-        console.warn('서버 로그아웃 실패 (500 에러), 로컬에서만 처리합니다.');
       } else {
-        console.warn(`서버 로그아웃 실패 (${response.status}), 로컬에서만 처리합니다.`);
+        console.warn('서버 로그아웃 실패:', result.message);
       }
     } catch (error) {
-      console.error('로그아웃 요청 실패:', error);
-      console.warn('네트워크 오류로 인해 로컬에서만 로그아웃 처리합니다.');
+      console.error('로그아웃 중 예외 발생:', error);
     } finally {
-      // 성공/실패 관계없이 로컬 상태는 정리
-      localStorage.removeItem('accessToken');
+      // 성공/실패 관계없이 로컬 상태 정리
+      tokenUtils.removeToken();
       setIsLoggedIn(false);
       setUsername('');
       setIsLoggingOut(false);
-
-      // 로그인 페이지로 리다이렉트
       navigate('/login');
     }
   };
