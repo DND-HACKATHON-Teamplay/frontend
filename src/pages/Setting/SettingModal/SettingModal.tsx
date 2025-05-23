@@ -42,19 +42,20 @@ export const SettingModal: React.FC<ModalProps> = ({ modalState, modalType, setM
       className={styles.SettingModalContainer}
       overlayClassName={styles.Overlay}
     >
-      <div className={styles.SettingModalTextContainer}>
-        {modalType === 'logout' ? (
-          <>
-            <h3 className={styles.SettingModalTitle}>로그아웃</h3>
-            <span className={styles.SettingModalText}>로그아웃 하시겠습니까?</span>
-          </>
-        ) : (
-          <>
-            <h3 className={styles.SettingModalTitle}>회원탈퇴</h3>
-            <span className={styles.SettingModalText}>회원탈퇴 하시겠습니까?</span>
-          </>
-        )}
-      </div>
+      {modalType === 'logout' ? (
+        <div className={styles.SettingModalTextContainer}>
+          <h3 className={styles.SettingModalTitle}>로그아웃 하시겠어요?</h3>
+          <span className={styles.SettingModalText}>언제든지 다시 로그인할 수 있습니다.</span>
+        </div>
+      ) : (
+        <div className={styles.SettingModalTextContainerDelete}>
+          <h3 className={styles.SettingModalTitle}>정말로 탈퇴하시겠어요?</h3>
+          <span className={styles.SettingModalText}>
+            탈퇴시 모든 데이터가 삭제되며 복구할 수 없습니다.
+          </span>
+        </div>
+      )}
+
       <div className={styles.ButtonWrapper}>
         <Button onClick={clickToCancle} btnType="cancel">
           취소

@@ -19,11 +19,15 @@
   width: 329px;
   align-items: center;
 }
-.SettingModalTextContainer {
+.SettingModalTextContainer,
+.SettingModalTextContainerDelete {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 160px;
+  width: 230px;
+}
+.SettingModalTextContainerDelete {
+  width: 190px;
 }
 .SettingModalTitle,
 .SettingModalText {
