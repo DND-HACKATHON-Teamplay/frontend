@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../services/Login/auth';
 import type { UserInfo } from '../../services/Login/auth';
 import { tokenUtils } from '../../utils/auth';
+import { dailyAPI, type DayInfoData } from '../../services/Daily/dailyAPI';
 import Header from '../../components/Calendar/Component/Header';
 import Calendar from '../../components/Calendar/Calendar';
 import DayInfo from '../../components/DayInfo/DayInfo';
@@ -10,12 +11,6 @@ import ChatButton from '../../components/ChatButton/ChatButton';
 import DatePickerBottomSheet from '../../components/Calendar/Component/DatePickerBottomSheet';
 import { mockDayStatuses } from '../../data/mockData';
 import styles from './Home.module.css';
-
-interface DayInfoData {
-  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
-  sleepTime: number | null;
-  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
-}
 
 const Home = () => {
   const navigate = useNavigate();
