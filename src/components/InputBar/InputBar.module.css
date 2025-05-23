@@ -1,0 +1,32 @@
+.InputBarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.InputBarTitle {
+  margin: 0;
+  color: #151719;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.14px;
+}
+
+.InputBar {
+  display: flex;
+  padding: 16px 24px;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid #e7e9ec;
+}
+.InputBar::placeholder {
+  color: #b1b8c0;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
