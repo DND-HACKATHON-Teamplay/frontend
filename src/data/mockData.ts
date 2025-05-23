@@ -48,7 +48,7 @@ export const mockDayStatusesRaw: DayStatusRaw[] = [
   { date: '2025-05-21', healthStatus: 'NORMAL', mindStatus: 'HAPPY' },
   { date: '2025-05-22', healthStatus: 'NORMAL', mindStatus: 'NORMAL' },
   { date: '2025-05-23', healthStatus: 'BAD', mindStatus: 'NORMAL' },
-  { date: '2025-05-24', healthStatus: 'HAPPY', mindStatus: 'HAPPY' },
+  // { date: '2025-05-24', healthStatus: 'HAPPY', mindStatus: 'HAPPY' }, // 서버 데이터 사용을 위해 삭제
   { date: '2025-05-25', healthStatus: 'HAPPY', mindStatus: 'NORMAL' },
   { date: '2025-05-26', healthStatus: 'HAPPY', mindStatus: 'HAPPY' },
   { date: '2025-05-27', healthStatus: 'NORMAL', mindStatus: 'HAPPY' },

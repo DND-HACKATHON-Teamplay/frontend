@@ -1,14 +1,8 @@
 import type React from 'react';
 import styles from './DayInfo.module.css';
 import typo from '../../styles/typography.module.css';
-import { mockDayStatusesRaw } from '../../data/mockData';
-import { useEffect } from 'react';
-
-interface DayInfoData {
-  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
-  sleepTime: number | null;
-  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
-}
+import { useEffect, useState } from 'react';
+import { dailyAPI, type DayInfoData } from '../../services/Daily/dailyAPI';
 
 interface DayInfoProps {
   selectedDate?: Date;
@@ -23,6 +17,9 @@ const DayInfo: React.FC<DayInfoProps> = ({
   setDayInfo,
   onDataAvailabilityChange,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   // 기본 데이터 (데이터가 없는 경우)
   const defaultDayInfo: DayInfoData = {
     healthStatus: null,
@@ -30,30 +27,45 @@ const DayInfo: React.FC<DayInfoProps> = ({
     mindStatus: null,
   };
 
-  // 선택된 날짜에 해당하는 데이터 찾기
-  const getDataForSelectedDate = (): DayInfoData => {
+  // API에서 데이터 가져오기
+  const fetchDataFromAPI = async (): Promise<DayInfoData> => {
     if (!selectedDate) {
       onDataAvailabilityChange?.(false);
       return defaultDayInfo;
     }
 
-    const dateString = selectedDate.toISOString().split('T')[0];
-    const dayData = mockDayStatusesRaw.find(data => data.date === dateString);
+    setIsLoading(true);
+    setError(null);
 
-    if (dayData) {
-      onDataAvailabilityChange?.(true);
-      return {
-        healthStatus: dayData.healthStatus,
-        sleepTime: 7, // 목 데이터에서는 고정값
-        mindStatus: dayData.mindStatus,
-      };
+    try {
+      const dateString = dailyAPI.formatDateForAPI(selectedDate);
+      const result = await dailyAPI.getDailyData(dateString);
+
+      if (result.success && result.data) {
+        const convertedData = dailyAPI.convertToDayInfoData(result.data);
+        console.log('✅ API 데이터 변환 완료:', {
+          원본: result.data,
+          변환후: convertedData,
+        });
+        onDataAvailabilityChange?.(true);
+        return convertedData;
+      } else {
+        // API 실패시 기본 데이터 반환
+        console.warn('API 데이터 조회 실패:', result.message);
+        onDataAvailabilityChange?.(false);
+        return defaultDayInfo;
+      }
+    } catch (error) {
+      console.error('API 호출 중 오류 발생:', error);
+      setError('데이터를 불러오는 중 오류가 발생했습니다.');
+      onDataAvailabilityChange?.(false);
+      return defaultDayInfo;
+    } finally {
+      setIsLoading(false);
     }
-
-    onDataAvailabilityChange?.(false);
-    return defaultDayInfo;
   };
 
-  const currentDayInfo = dayInfo || getDataForSelectedDate();
+  const currentDayInfo = dayInfo || defaultDayInfo;
 
   // 상태값을 CSS 클래스로 변환 (null인 경우 sleep 스타일 사용)
   const getStatusClass = (status: string | null) => {
@@ -89,18 +101,38 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
   // 수면시간 표시 (null인 경우 '-' 표시)
   const getSleepTimeText = (sleepTime: number | null) => {
-    return sleepTime === null ? '-' : `${sleepTime}시간`;
+    if (sleepTime === null || sleepTime === undefined) return '-';
+    return `${sleepTime}시간`;
   };
 
   useEffect(() => {
-    if (!setDayInfo) return;
+    if (!selectedDate) {
+      setDayInfo?.(defaultDayInfo);
+      return;
+    }
 
-    const newDayInfo = getDataForSelectedDate();
-    setDayInfo(newDayInfo);
-  }, [selectedDate]);
+    const loadData = async () => {
+      const newDayInfo = await fetchDataFromAPI();
+      setDayInfo?.(newDayInfo);
+    };
+
+    loadData();
+  }, [selectedDate, setDayInfo]);
 
   return (
     <div className={styles.dayInfoContainer}>
+      {isLoading && (
+        <div style={{ textAlign: 'center', padding: '8px', fontSize: '12px', color: '#666' }}>
+          데이터를 불러오는 중...
+        </div>
+      )}
+
+      {error && (
+        <div style={{ textAlign: 'center', padding: '8px', fontSize: '12px', color: '#ff6b6b' }}>
+          {error}
+        </div>
+      )}
+
       <div className={styles.infoGrid}>
         {/* 건강징후 */}
         <div
