@@ -7,6 +7,7 @@ import { getElderInfo } from '../../services/getElderInfo';
 import { patchElder } from '../../services/patchElder';
 import { useNavigate } from 'react-router-dom';
 import arrowBack from '../../assets/arrowBack.svg';
+import { RegisterModal } from '../RegisterElder/RegisterModal/RegisterModal';
 
 const genderSelectArr = ['남성', '여성'];
 const relationShipSelectArr = ['자식', '손자', '형제', '친척'];
@@ -27,6 +28,8 @@ const EditElderly = () => {
 
   const birthInputRef = useRef<HTMLInputElement>(null);
   const phoneInputRef = useRef<HTMLInputElement>(null);
+
+  const [modalState, setModalState] = useState<boolean>(false);
 
   const fetchElderData = async () => {
     try {
@@ -207,10 +210,14 @@ const EditElderly = () => {
       );
 
       console.log('등록 성공:', response);
-      navigate('/');
     } catch (error) {
       console.error('어르신 등록 실패:', error);
     }
+  };
+
+  const handleOpenModal = () => {
+    editElder();
+    setModalState(true);
   };
   return (
     <>
@@ -222,7 +229,7 @@ const EditElderly = () => {
           onClick={() => navigate(-1)}
         />
         <span className={styles.PageTitle}>어르신 정보 수정</span>
-        <span className={styles.CompleteText} onClick={editElder}>
+        <span className={styles.CompleteText} onClick={handleOpenModal}>
           완료
         </span>
       </div>
@@ -281,6 +288,7 @@ const EditElderly = () => {
           />
         </div>
       </div>
+      <RegisterModal modalState={modalState} setModalState={setModalState} modalType="edit" />
     </>
   );
 };
