@@ -3,20 +3,9 @@ import styles from './DayInfo.module.css';
 import typo from '../../styles/typography.module.css';
 
 interface DayInfoData {
-  healthStatus: {
-    label: string;
-    value: string;
-    status: 'bad' | 'normal' | 'good';
-  };
-  mentalState: {
-    label: string;
-    value: string;
-    status: 'bad' | 'normal' | 'good';
-  };
-  sleep: {
-    label: string;
-    value: string;
-  };
+  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY';
+  sleepTime: number;
+  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY';
 }
 
 interface DayInfoProps {
@@ -25,56 +14,69 @@ interface DayInfoProps {
 }
 
 const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo }) => {
-  // 기본 데이터 (선택된 날짜가 28일인 경우의 예시)
+  // 기본 데이터
   const defaultDayInfo: DayInfoData = {
-    healthStatus: {
-      label: '건강징후',
-      value: '나쁨',
-      status: 'bad',
-    },
-    mentalState: {
-      label: '심리상태',
-      value: '좋음',
-      status: 'good',
-    },
-    sleep: {
-      label: '수면',
-      value: '7시간',
-    },
+    healthStatus: 'BAD',
+    sleepTime: 7,
+    mindStatus: 'HAPPY',
   };
 
   const currentDayInfo = dayInfo || defaultDayInfo;
+
+  // 상태값을 CSS 클래스로 변환
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'BAD':
+        return 'bad';
+      case 'NORMAL':
+        return 'normal';
+      case 'HAPPY':
+        return 'happy';
+      default:
+        return 'normal';
+    }
+  };
+
+  // 상태값을 한국어로 변환
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'BAD':
+        return '나쁨';
+      case 'NORMAL':
+        return '보통';
+      case 'HAPPY':
+        return '좋음';
+      default:
+        return '보통';
+    }
+  };
 
   return (
     <div className={styles.dayInfoContainer}>
       <div className={styles.infoGrid}>
         {/* 건강징후 */}
-        <div className={`${styles.infoCard} ${styles[currentDayInfo.healthStatus.status]}`}>
-          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>
-            {currentDayInfo.healthStatus.label}
-          </div>
+        <div
+          className={`${styles.infoCard} ${styles[getStatusClass(currentDayInfo.healthStatus)]}`}
+        >
+          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>건강징후</div>
           <div className={`${styles.infoValue} ${typo.body1NormalBold}`}>
-            {currentDayInfo.healthStatus.value}
+            {getStatusText(currentDayInfo.healthStatus)}
           </div>
         </div>
 
         {/* 심리상태 */}
-        <div className={`${styles.infoCard} ${styles[currentDayInfo.mentalState.status]}`}>
-          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>
-            {currentDayInfo.mentalState.label}
-          </div>
+        <div className={`${styles.infoCard} ${styles[getStatusClass(currentDayInfo.mindStatus)]}`}>
+          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>심리상태</div>
           <div className={`${styles.infoValue} ${typo.body1NormalBold}`}>
-            {currentDayInfo.mentalState.value}
+            {getStatusText(currentDayInfo.mindStatus)}
           </div>
         </div>
 
         {/* 수면 */}
         <div className={`${styles.infoCard} ${styles.sleep}`}>
-          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>
-            {currentDayInfo.sleep.label}
-          </div>
+          <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>수면시간</div>
           <div className={`${styles.infoValue} ${typo.body1NormalBold}`}>
-            {currentDayInfo.sleep.value}
+            {currentDayInfo.sleepTime}시간
           </div>
         </div>
       </div>
