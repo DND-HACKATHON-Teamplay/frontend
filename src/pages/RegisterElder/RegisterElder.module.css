@@ -2,24 +2,34 @@
   padding: 0 16px;
   position: relative;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
 .PageTitle {
   color: #000;
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
-  line-height: 50px; /* 138.889% */
+  line-height: 50px;
   letter-spacing: -1.08px;
   margin-top: 32px;
 }
+
 .ContentWrapper {
   margin-top: 32px;
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding-bottom: 160px; /* 버튼 영역 안 가리게 여유 공간 */
 }
+
 .ButtonWrapper {
   position: absolute;
   width: calc(100% - 32px);
   bottom: 60px;
+  left: 16px;
+  right: 16px;
 }
