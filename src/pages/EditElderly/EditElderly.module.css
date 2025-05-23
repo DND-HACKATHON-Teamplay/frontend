@@ -1,7 +1,7 @@
 .PageWrapper {
-  padding: 0 16px;
-  position: relative;
   height: 100vh;
+  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -11,15 +11,27 @@
 .PageWrapper::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
 .HeaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 56px;
+  padding: 0 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #eee;
 }
+
 .ArrowBackIcon {
   padding: 12px;
 }
+
 .PageTitle {
   color: #151719;
   text-align: center;
@@ -29,6 +41,7 @@
   line-height: 24px; /* 150% */
   letter-spacing: -0.16px;
 }
+
 .CompleteText {
   padding: 12px;
   color: #25d085;
@@ -41,8 +54,9 @@
 }
 
 .ContentWrapper {
-  margin-top: 32px;
   flex: 1;
+  margin-top: 56px; /* HeaderContainer 높이 */
+  padding: 0 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -52,7 +66,6 @@
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
 }
-
 .ContentWrapper::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }

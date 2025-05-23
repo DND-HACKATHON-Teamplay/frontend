@@ -220,7 +220,7 @@ const EditElderly = () => {
     setModalState(true);
   };
   return (
-    <>
+    <div className={styles.PageWrapper}>
       <div className={styles.HeaderContainer}>
         <img
           className={styles.ArrowBackIcon}
@@ -233,63 +233,61 @@ const EditElderly = () => {
           완료
         </span>
       </div>
-      <div className={styles.PageWrapper}>
-        <div className={styles.ContentWrapper}>
-          <InputBar
-            title="성함"
-            type="text"
-            placeholder="성함을 입력해주세요."
-            value={elderName}
-            onChange={handleInputName}
-          />
-          <InputBar
-            title="생년월일"
-            type="text"
-            placeholder="YYYY / MM / DD"
-            value={birth}
-            onChange={handleInputBirth}
-            onBlur={handleBlurBirth}
-            onFocus={handleFocusBirth}
-            inputRef={birthInputRef}
-          />
-          <SelectButton
-            title="성별"
-            selectArr={genderSelectArr}
-            selectedButton={gender}
-            setSelectedButton={setGender}
-          />
-          <InputBar
-            title="휴대폰 번호"
-            type="text"
-            placeholder="010-1234-5678"
-            value={phoneNumber}
-            onChange={handleInputPhoneNumber}
-            onBlur={handleBlurPhone}
-            onFocus={handleFocusPhone}
-            inputRef={phoneInputRef}
-          />
-          <SelectButton
-            title="어르신과의 관계"
-            selectArr={relationShipSelectArr}
-            selectedButton={relationship}
-            setSelectedButton={setRelationship}
-          />
-          <SelectTime
-            hour={hour}
-            minutes={minutes}
-            isAm={isAm}
-            onChangeHour={handleChangeHour}
-            onChangeMinutes={handleChangeMinutes}
-            onBlurHour={handleBlurHour}
-            onBlurMinutes={handleBlurMinutes}
-            onKeyDownHour={handleKeyDownHour}
-            onKeyDownMinutes={handleKeyDownMinutes}
-            setIsAm={setIsAm}
-          />
-        </div>
+      <div className={styles.ContentWrapper}>
+        <InputBar
+          title="성함"
+          type="text"
+          placeholder="성함을 입력해주세요."
+          value={elderName}
+          onChange={handleInputName}
+        />
+        <InputBar
+          title="생년월일"
+          type="text"
+          placeholder="YYYY / MM / DD"
+          value={birth}
+          onChange={handleInputBirth}
+          onBlur={handleBlurBirth}
+          onFocus={handleFocusBirth}
+          inputRef={birthInputRef}
+        />
+        <SelectButton
+          title="성별"
+          selectArr={genderSelectArr}
+          selectedButton={gender}
+          setSelectedButton={setGender}
+        />
+        <InputBar
+          title="휴대폰 번호"
+          type="text"
+          placeholder="010-1234-5678"
+          value={phoneNumber}
+          onChange={handleInputPhoneNumber}
+          onBlur={handleBlurPhone}
+          onFocus={handleFocusPhone}
+          inputRef={phoneInputRef}
+        />
+        <SelectButton
+          title="어르신과의 관계"
+          selectArr={relationShipSelectArr}
+          selectedButton={relationship}
+          setSelectedButton={setRelationship}
+        />
+        <SelectTime
+          hour={hour}
+          minutes={minutes}
+          isAm={isAm}
+          onChangeHour={handleChangeHour}
+          onChangeMinutes={handleChangeMinutes}
+          onBlurHour={handleBlurHour}
+          onBlurMinutes={handleBlurMinutes}
+          onKeyDownHour={handleKeyDownHour}
+          onKeyDownMinutes={handleKeyDownMinutes}
+          setIsAm={setIsAm}
+        />
       </div>
       <RegisterModal modalState={modalState} setModalState={setModalState} modalType="edit" />
-    </>
+    </div>
   );
 };
 
