@@ -6,6 +6,7 @@ import { tokenUtils } from '../../utils/auth';
 import Header from '../../components/Calendar/Component/Header';
 import Calendar from '../../components/Calendar/Calendar';
 import DayInfo from '../../components/DayInfo/DayInfo';
+import ChatButton from '../../components/ChatButton/ChatButton';
 import { mockDayStatuses } from '../../data/mockData';
 import styles from './Home.module.css';
 
@@ -91,8 +92,10 @@ const Home = () => {
           currentDate={currentDate}
         />
 
-        {/* DayInfo를 캘린더 바로 아래에 배치 */}
         <DayInfo selectedDate={selectedDate} />
+
+        {/* 채팅 버튼 */}
+        <ChatButton />
       </div>
     </div>
   );
