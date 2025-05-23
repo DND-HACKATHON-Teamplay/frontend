@@ -53,3 +53,11 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
 }
+
+.MapButton {
+  margin-left: 20px;
+  background: var(--color-primary);
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  color: #fff;
+}
