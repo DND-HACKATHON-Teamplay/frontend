@@ -7,6 +7,7 @@ import Header from '../../components/Calendar/Component/Header';
 import Calendar from '../../components/Calendar/Calendar';
 import DayInfo from '../../components/DayInfo/DayInfo';
 import ChatButton from '../../components/ChatButton/ChatButton';
+import DatePickerBottomSheet from '../../components/Calendar/Component/DatePickerBottomSheet';
 import { mockDayStatuses } from '../../data/mockData';
 import styles from './Home.module.css';
 
@@ -14,9 +15,10 @@ const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   // 달력 관련 state
-  const [currentDate] = useState(new Date(2025, 4, 1));
+  const [currentDate, setCurrentDate] = useState(new Date(2025, 4, 1));
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24));
 
   useEffect(() => {
@@ -50,8 +52,18 @@ const Home = () => {
 
   // 헤더의 날짜 선택기 클릭 핸들러
   const handleDatePickerClick = () => {
-    console.log('날짜 선택기 클릭됨');
-    // 여기에 바텀시트 열기 로직 추가 예정
+    setIsDatePickerOpen(true);
+  };
+
+  // 바텀시트 닫기 핸들러
+  const handleDatePickerClose = () => {
+    setIsDatePickerOpen(false);
+  };
+
+  // 바텀시트에서 날짜 선택 핸들러
+  const handleDatePickerSelect = (date: Date) => {
+    setCurrentDate(date);
+    setSelectedDate(new Date(date.getFullYear(), date.getMonth(), 1));
   };
 
   // 설정 버튼 클릭 핸들러
@@ -101,6 +113,14 @@ const Home = () => {
           등록하기로 가기
         </button>
       </div>
+
+      {/* 날짜 선택 바텀시트 */}
+      <DatePickerBottomSheet
+        isOpen={isDatePickerOpen}
+        onClose={handleDatePickerClose}
+        currentDate={currentDate}
+        onDateSelect={handleDatePickerSelect}
+      />
     </div>
   );
 };
