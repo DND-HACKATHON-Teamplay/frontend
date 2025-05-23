@@ -1,96 +1,115 @@
-.pageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f8f9fa;
-  padding: 1rem;
-}
-
 .container {
-  width: 100%;
-  max-width: 400px;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  background-color: white;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
-.title {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.description {
-  color: #666;
-  margin-bottom: 2rem;
+.logoSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
 }
 
-/* 공통 버튼 스타일 */
-.googleButton,
-.kakaoButton {
+.loginGif {
+  width: auto;
+  height: auto;
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.buttonSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px;
+  margin-bottom: 40px;
+}
+
+.googleButton {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin-bottom: 1rem;
-}
-
-/* 구글 버튼 */
-.googleButton {
+  height: 56px;
   background-color: white;
-  color: #444;
+  border: 1px solid #e7e9ec;
+  border-radius: 28px;
+  color: #3c4043;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .googleButton:hover {
   background-color: #f8f9fa;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.googleButton:active {
+  background-color: #f1f3f4;
 }
 
 .googleIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  background-color: white;
-  border-radius: 50%;
-  font-weight: bold;
-  color: #4285f4;
+  margin-right: 12px;
 }
 
-/* 카카오 버튼 */
 .kakaoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
   background-color: #fee500;
-  color: #3c1e1e;
-  border-color: #fee500;
+  border-radius: 28px;
+  border: none;
+  color: #3c4043;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .kakaoButton:hover {
-  background-color: #ffeb3b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(254, 229, 0, 0.3);
+  background-color: #fdd835;
+}
+
+.kakaoButton:active {
+  background-color: #f9a825;
 }
 
 .kakaoIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  background-color: #3c1e1e;
-  border-radius: 50%;
-  font-weight: bold;
-  color: #fee500;
+  margin-right: 12px;
+}
+
+/* iPhone 상태바 영역 고려 */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .content {
+    padding-top: calc(60px + env(safe-area-inset-top));
+  }
+}
+
+/* iPhone 하단 홈 인디케이터 영역 고려 */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .buttonSection {
+    margin-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
 }
