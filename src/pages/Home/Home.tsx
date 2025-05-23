@@ -105,6 +105,7 @@ const Home = () => {
             {isLoggingOut ? '🔄 로그아웃 중...' : '🔓 로그아웃'}
           </button>
         </div>
+        <button onClick={() => navigate('/register')}>등록하기로 가기</button>
       </div>
     </div>
   );

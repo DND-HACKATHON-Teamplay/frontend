@@ -1,0 +1,42 @@
+.SelectButtonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.SelectButtonTitle {
+  margin: 0;
+  color: #151719;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.14px;
+}
+.SelectButtonWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.SelectedButton,
+.NotSelectedButton {
+  width: 100%;
+  padding: 16px 26px;
+  border-radius: 16px;
+  border: 1px solid #0bbd49;
+  background: #e6f7e9;
+
+  color: #0bbd49;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
+.NotSelectedButton {
+  border: none;
+  background: #fafafb;
+  color: #505866;
+}
