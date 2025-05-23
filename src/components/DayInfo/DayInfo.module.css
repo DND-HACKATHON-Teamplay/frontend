@@ -1,0 +1,54 @@
+.dayInfoContainer {
+  padding: 16px;
+  background-color: #ffffff;
+  padding-top: 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8px 16px 12px 16px;
+  border-radius: 16px;
+  background-color: #f8f9fa;
+}
+
+.infoLabel {
+  color: var(--color-label-neutral);
+  margin-bottom: 6px;
+  text-align: left;
+  width: 100%;
+}
+
+.infoValue {
+  text-align: center;
+  width: 100%;
+}
+
+/* 상태별 스타일 */
+.bad {
+  background-color: var(--color-negative-error-container);
+  color: var(--color-negative-error);
+}
+
+.normal {
+  background-color: var(--color-primary-container);
+  color: var(--color-primary);
+}
+
+.happy {
+  background-color: var(--color-positive-container);
+  color: var(--color-positive);
+}
+
+.sleep {
+  background-color: var(--color-container-normal);
+  color: var(--color-label-normal);
+}

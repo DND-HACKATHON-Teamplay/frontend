@@ -1,0 +1,46 @@
+.chatButtonContainer {
+  padding: 16px;
+  background-color: #ffffff;
+  padding-top: 0;
+}
+
+.chatButton {
+  width: 100%;
+  height: 56px;
+  background-color: var(--color-positive);
+  border: none;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10.3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chatButton:hover:not(.disabled) {
+  background-color: #009a44;
+}
+
+.chatButton:active:not(.disabled) {
+  background-color: #008a3a;
+  transform: scale(0.98);
+}
+
+.chatButton.disabled {
+  background-color: var(--color-container-disabled);
+  cursor: not-allowed;
+}
+
+.chatButton.disabled .chatButtonText {
+  color: var(--color-label-disabled);
+}
+
+.chatIcon {
+  width: 19px;
+  height: 19px;
+}
+
+.chatButtonText {
+  color: var(--color-inverse-white);
+}

@@ -1,0 +1,129 @@
+.calendar {
+  background-color: #ffffff;
+  padding: 24px 16px 16px 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.weekHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+
+.weekDay {
+  text-align: center;
+  color: var(--color-label-neutral);
+  padding: 8px 0;
+}
+
+.weekDay.sunday {
+  color: var(--color-negative-error);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px 12.5px;
+}
+
+.emptyDay {
+  height: 60px;
+}
+
+.dayButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4px;
+}
+
+.dayButton:hover:not(.futureDate) {
+  background-color: #f8f9fa;
+}
+
+.dayButton.otherMonth {
+  opacity: 0.3;
+}
+
+.dayButton.selected {
+  background-color: var(--color-container-selected);
+}
+
+.dayButton.selected .dayNumber {
+  color: var(--color-base-white);
+  font-weight: 700;
+  background-color: var(--color-label-normal);
+  border-radius: 4px;
+  padding: 0 3px;
+}
+
+.dayButton.futureDate {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.dayButton.futureDate:hover {
+  background-color: transparent;
+}
+
+.dayContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.emojiCircle {
+  position: absolute;
+  top: 2px;
+  width: 28px;
+  height: 28px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.dayButton.selected .emojiCircle {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ringIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.dayNumber {
+  color: var(--color-label-neutral);
+  margin-top: auto;
+  margin-bottom: 4px;
+}
+
+.dayButton.otherMonth .dayNumber {
+  color: #cccccc;
+}
+
+.dayButton.futureDate .dayContent {
+  justify-content: center;
+  align-items: center;
+  color: var(--color-label-alternative);
+  font-size: 16px;
+}
+
+.dayButton.futureDate .dayNumber {
+  color: var(--color-label-disabled);
+  margin: 0;
+}

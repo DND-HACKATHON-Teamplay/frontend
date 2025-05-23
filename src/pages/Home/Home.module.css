@@ -1,55 +1,35 @@
-.container {
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-  padding: 2rem;
-  margin: 4rem auto;
-  background-color: white;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-}
-.testText {
-  color: var(--color-decrease);
-}
-.welcomeSection,
-.loginSection {
-  margin-top: 2rem;
+/* 전체 컨테이너 */
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  max-width: 100vw;
 }
 
-.username {
-  font-weight: bold;
-  color: #0bec12;
+/* 로딩 상태 */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
-.loginButton,
-.logoutButton {
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.loadingText {
+  font-size: 18px;
+  color: #333;
 }
 
-.loginButton {
-  background-color: #0bec12;
-  color: white;
+/* 달력과 DayInfo를 하나로 묶는 컨테이너 */
+.calendarContainer {
+  background-color: #ffffff;
+  flex: 1;
 }
 
-.logoutButton {
-  background-color: #f44336;
-  color: white;
-}
-
-.loginButton:hover {
-  background-color: #0ace10;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(10, 206, 16, 0.2);
-}
-
-.logoutButton:hover {
-  background-color: #d32f2f;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+/* 모바일 우선 디자인 */
+@media (max-width: 480px) {
+  .homeContainer {
+    max-width: 100%;
+  }
 }

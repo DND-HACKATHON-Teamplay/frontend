@@ -3,35 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../services/Login/auth';
 import type { UserInfo } from '../../services/Login/auth';
 import { tokenUtils } from '../../utils/auth';
-import classNames from 'classnames';
+import Header from '../../components/Calendar/Component/Header';
+import Calendar from '../../components/Calendar/Calendar';
+import DayInfo from '../../components/DayInfo/DayInfo';
+import ChatButton from '../../components/ChatButton/ChatButton';
+import { mockDayStatuses } from '../../data/mockData';
 import styles from './Home.module.css';
-import fontStyles from '../../styles/typography.module.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
+
+  // 달력 관련 state
+  const [currentDate] = useState(new Date(2025, 4, 1));
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24));
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
-        // setIsLoggedIn(true);
-
         // 사용자 정보 조회 시도
         try {
           const result = await authAPI.getUserInfo();
           if (result.success && result.data) {
             const userInfo = result.data as UserInfo;
-            setUsername(userInfo.name || userInfo.email || '사용자');
-          } else {
-            // API 실패 시 기본값 사용
-            setUsername('사용자');
+            // username 사용하지 않으므로 제거
+            console.log('사용자:', userInfo.name || userInfo.email || '사용자');
           }
         } catch (error) {
           console.error('사용자 정보 조회 실패:', error);
-          setUsername('사용자');
         }
       } else {
         navigate('/login');
@@ -40,72 +40,66 @@ const Home = () => {
     };
 
     checkAuthStatus();
-  }, []);
+  }, [navigate]);
 
-  // const handleGoToLogin = () => {
-  //   navigate('/login');
-  // };
+  // 달력 날짜 선택 핸들러
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+    console.log('선택된 날짜:', date.toLocaleDateString('ko-KR'));
+  };
 
-  const handleLogout = async () => {
-    if (!tokenUtils.isLoggedIn()) {
-      navigate('/login');
-      return;
-    }
+  // 헤더의 날짜 선택기 클릭 핸들러
+  const handleDatePickerClick = () => {
+    console.log('날짜 선택기 클릭됨');
+    // 여기에 바텀시트 열기 로직 추가 예정
+  };
 
-    setIsLoggingOut(true);
+  // 설정 버튼 클릭 핸들러
+  const handleSettingsClick = () => {
+    console.log('설정 버튼 클릭됨');
+  };
 
-    try {
-      // API 서비스를 통한 로그아웃 요청
-      const result = await authAPI.logout();
-
-      if (result.success) {
-        console.log('서버에서 로그아웃 성공');
-      } else {
-        console.warn('서버 로그아웃 실패:', result.message);
-      }
-    } catch (error) {
-      console.error('로그아웃 중 예외 발생:', error);
-    } finally {
-      // 성공/실패 관계없이 로컬 상태 정리
-      tokenUtils.removeToken();
-      // setIsLoggedIn(false);
-      setUsername('');
-      setIsLoggingOut(false);
-      navigate('/login');
-    }
+  // 데이터 가용성 변경 핸들러
+  const handleDataAvailabilityChange = (hasData: boolean) => {
+    setHasDataForSelectedDate(hasData);
   };
 
   if (isLoading) {
     return (
-      <div className="page-wrapper">
-        <div className={styles.container}>
-          <h1>🔄 로딩 중...</h1>
-        </div>
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingText}>🔄 로딩 중...</div>
       </div>
     );
   }
 
   return (
-    <div className="page-wrapper">
-      <div className={styles.container}>
-        <span className={classNames(styles.testText, fontStyles.displayD2Bold)}>연습용</span>
-        <h1>🏠 Home Page</h1>
+    <div className={styles.homeContainer}>
+      {/* 헤더 */}
+      <Header
+        currentDate={currentDate}
+        onDatePickerClick={handleDatePickerClick}
+        onSettingsClick={handleSettingsClick}
+      />
 
-        <div className={styles.welcomeSection}>
-          <p>
-            <span className={styles.username}>{username}</span>님, 환영합니다!
-          </p>
-          <p>성공적으로 로그인되었습니다!!</p>
-          <button
-            type="button"
-            className={styles.logoutButton}
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? '🔄 로그아웃 중...' : '🔓 로그아웃'}
-          </button>
-        </div>
-        <button onClick={() => navigate('/register')}>등록하기로 가기</button>
+      {/* 달력과 DayInfo를 하나의 컨테이너로 묶음 */}
+      <div className={styles.calendarContainer}>
+        <Calendar
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
+          dayStatuses={mockDayStatuses}
+          currentDate={currentDate}
+        />
+
+        <DayInfo
+          selectedDate={selectedDate}
+          onDataAvailabilityChange={handleDataAvailabilityChange}
+        />
+
+        {/* 채팅 버튼 */}
+        <ChatButton disabled={!hasDataForSelectedDate} />
+        <button type="button" onClick={() => navigate('/register')}>
+          등록하기로 가기
+        </button>
       </div>
     </div>
   );
