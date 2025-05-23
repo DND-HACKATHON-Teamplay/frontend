@@ -18,7 +18,6 @@ interface DayInfoData {
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -83,14 +82,6 @@ const Home = () => {
   const handleDataAvailabilityChange = (hasData: boolean) => {
     setHasDataForSelectedDate(hasData);
   };
-
-  if (isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loadingText}>🔄 로딩 중...</div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.homeContainer}>
