@@ -1,0 +1,74 @@
+.dayInfoContainer {
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 8px;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  min-height: 80px;
+}
+
+.infoLabel {
+  color: #666666;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.infoValue {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* 색상별 스타일 */
+.red {
+  color: #ff4444;
+}
+
+.green {
+  color: #00aa44;
+}
+
+.blue {
+  color: #000000;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 480px) {
+  .dayInfoContainer {
+    padding: 16px;
+  }
+
+  .infoGrid {
+    gap: 8px;
+  }
+
+  .infoCard {
+    padding: 12px 6px;
+    min-height: 70px;
+  }
+
+  .infoLabel {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .infoValue {
+    font-size: 14px;
+  }
+}

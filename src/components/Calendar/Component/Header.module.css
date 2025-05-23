@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.leftSpace {
+  display: none;
+}
+
+.datePickerButton {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.dateText {
+  color: var(--color-label-strong);
+}
+
+.dropdownIcon {
+  width: 9px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.datePickerButton:hover .dropdownIcon {
+  transform: rotate(180deg);
+}
+
+.settingsButton {
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.settingsButton:hover {
+  background-color: #f5f5f5;
+}
+
+.settingsIcon {
+  width: 20px;
+  height: 20px;
+}
