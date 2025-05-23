@@ -1,12 +1,12 @@
 import { tokenUtils } from '../../utils/auth';
 import axios from 'axios';
 
-// 일일 데이터 타입 정의 (기존 타입과 일치)
+// 일일 데이터 타입 정의 (null 허용으로 수정)
 export interface DailyData {
   id: number;
-  healthStatus: 'HAPPY' | 'NORMAL' | 'BAD';
-  sleepTime: number;
-  mindStatus: 'HAPPY' | 'NORMAL' | 'BAD';
+  healthStatus: 'HAPPY' | 'NORMAL' | 'BAD' | null;
+  sleepTime: number | null;
+  mindStatus: 'HAPPY' | 'NORMAL' | 'BAD' | null;
   createdDate: string;
   updatedDate: string;
 }
@@ -48,12 +48,12 @@ export const dailyAPI = {
       });
       const rawData = response.data;
 
-      // 필요한 데이터만 추출 (null/undefined 처리 추가)
+      // 서버에서 데이터가 없는 경우 null 유지
       const dailyData: DailyData = {
         id: rawData.id || 0,
-        healthStatus: rawData.healthStatus || 'NORMAL',
-        sleepTime: Number(rawData.sleepTime) || 0, // 명시적으로 숫자 변환
-        mindStatus: rawData.mindStatus || 'NORMAL',
+        healthStatus: rawData.healthStatus || null, // null 유지
+        sleepTime: rawData.sleepTime ? Number(rawData.sleepTime) : null, // null 유지
+        mindStatus: rawData.mindStatus || null, // null 유지
         createdDate: rawData.createdDate || new Date().toISOString(),
         updatedDate: rawData.updatedDate || new Date().toISOString(),
       };
@@ -90,25 +90,12 @@ export const dailyAPI = {
     return `${year}-${month}-${day}`;
   },
 
-  // API 상태를 DayInfo 상태로 변환
+  // API 상태를 DayInfo 상태로 변환 (null 값 유지)
   convertToDayInfoData: (apiData: DailyData): DayInfoData => {
-    const convertStatus = (status: 'HAPPY' | 'NORMAL' | 'BAD'): 'BAD' | 'NORMAL' | 'HAPPY' => {
-      switch (status) {
-        case 'HAPPY':
-          return 'HAPPY';
-        case 'NORMAL':
-          return 'NORMAL';
-        case 'BAD':
-          return 'BAD';
-        default:
-          return 'NORMAL';
-      }
-    };
-
     const converted = {
-      healthStatus: convertStatus(apiData.healthStatus),
-      sleepTime: apiData.sleepTime,
-      mindStatus: convertStatus(apiData.mindStatus),
+      healthStatus: apiData.healthStatus, // null이면 null 그대로 유지
+      sleepTime: apiData.sleepTime, // null이면 null 그대로 유지
+      mindStatus: apiData.mindStatus, // null이면 null 그대로 유지
     };
 
     return converted;

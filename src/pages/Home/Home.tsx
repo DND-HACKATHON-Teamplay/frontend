@@ -86,7 +86,7 @@ const Home = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
-       try {
+        try {
           // 어르신 등록 여부 확인
           const isRegisteredResponse = await isRegisteredApi();
           if (isRegisteredResponse) {
@@ -131,6 +131,8 @@ const Home = () => {
 
   // 달력 날짜 선택 핸들러
   const handleDateSelect = (date: Date) => {
+    setDayInfo(undefined);
+    setHasDataForSelectedDate(false);
     setSelectedDate(date);
   };
 

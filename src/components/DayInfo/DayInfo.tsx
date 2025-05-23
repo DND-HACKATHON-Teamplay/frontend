@@ -17,7 +17,7 @@ const DayInfo: React.FC<DayInfoProps> = ({
   setDayInfo,
   onDataAvailabilityChange,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  // Removed unused isLoading state
   const [error, setError] = useState<string | null>(null);
 
   // 기본 데이터 (데이터가 없는 경우)
@@ -34,7 +34,7 @@ const DayInfo: React.FC<DayInfoProps> = ({
       return defaultDayInfo;
     }
 
-    setIsLoading(true);
+    // Removed setIsLoading call
     setError(null);
 
     try {
@@ -60,9 +60,8 @@ const DayInfo: React.FC<DayInfoProps> = ({
       setError('데이터를 불러오는 중 오류가 발생했습니다.');
       onDataAvailabilityChange?.(false);
       return defaultDayInfo;
-    } finally {
-      setIsLoading(false);
     }
+    // Removed setIsLoading call
   };
 
   const currentDayInfo = dayInfo || defaultDayInfo;
@@ -121,12 +120,6 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
   return (
     <div className={styles.dayInfoContainer}>
-      {isLoading && (
-        <div style={{ textAlign: 'center', padding: '8px', fontSize: '12px', color: '#666' }}>
-          데이터를 불러오는 중...
-        </div>
-      )}
-
       {error && (
         <div style={{ textAlign: 'center', padding: '8px', fontSize: '12px', color: '#ff6b6b' }}>
           {error}
