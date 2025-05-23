@@ -25,7 +25,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  border-bottom: 1px solid #eee;
 }
 
 .ArrowBackIcon {
@@ -55,7 +54,7 @@
 
 .ContentWrapper {
   flex: 1;
-  margin-top: 56px; /* HeaderContainer 높이 */
+  margin-top: 70px;
   padding: 0 16px;
   overflow-y: auto;
   display: flex;
