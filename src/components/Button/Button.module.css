@@ -11,10 +11,22 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: 26px; /* 144.444% */
+  line-height: 26px;
   letter-spacing: -0.18px;
 }
+
 .DisabledButton {
   background: #e7e9ec;
   color: #b1b8c0;
+}
+
+/* ✅ 추가 */
+.EditButton {
+  background: #e6533e;
+  color: #fff;
+}
+
+.CancelButton {
+  background: #fafafb;
+  color: #505866;
 }

@@ -2,40 +2,21 @@ import styles from './Setting.module.css';
 import arrowBack from '../../assets/arrowBack.svg';
 import arrowRight from '../../assets/arrowRight.svg';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../../services/Login/auth';
-import { tokenUtils } from '../../utils/auth';
-import { deleteUser } from '../../services/deleteUser';
+import { useState } from 'react';
+import { SettingModal } from './SettingModal/SettingModal';
 
 const Setting = () => {
   const navigate = useNavigate();
+  const [modalState, setModalState] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>('');
+
   const handleLogout = async () => {
-    const confirmed = window.confirm('로그아웃 하시겠습니까?');
-    if (!confirmed) return;
-
-    const response = await authAPI.logout();
-    console.log(response);
-
-    if (response.success) {
-      tokenUtils.removeToken();
-      navigate('/login');
-    } else {
-      alert(response.message || '로그아웃에 실패했습니다.');
-    }
+    setModalType('logout');
+    setModalState(true);
   };
   const handleDeleteUser = async () => {
-    const confirmed = window.confirm(
-      '정말로 회원을 탈퇴하시겠습니까? 탈퇴 후 복구가 불가능합니다.',
-    );
-    if (!confirmed) return;
-
-    try {
-      await deleteUser();
-      tokenUtils.removeToken(); // 토큰 삭제
-      alert('회원 탈퇴가 완료되었습니다.');
-      navigate('/login'); // 로그인 페이지로 이동
-    } catch (error: any) {
-      alert(error.message || '회원 탈퇴 중 오류가 발생했습니다.');
-    }
+    setModalType('deleteUser');
+    setModalState(true);
   };
 
   return (
@@ -65,6 +46,7 @@ const Setting = () => {
           </button>
         </div>
       </div>
+      <SettingModal modalState={modalState} modalType={modalType} setModalState={setModalState} />
     </div>
   );
 };
