@@ -56,7 +56,7 @@
 }
 
 .splashIconImage {
-  width: auto;
+  width: 100%;
   object-fit: contain;
 }
 

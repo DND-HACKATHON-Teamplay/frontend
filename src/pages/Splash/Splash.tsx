@@ -1,9 +1,28 @@
-import React from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { tokenUtils } from '../../utils/auth';
 import styles from './Splash.module.css';
 import logo from '../../assets/splash/logo.svg';
 import splashIcon from '../../assets/splash/splash-icon.svg';
 
 const Splash: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // 로그인 상태 확인 후 조건부 이동
+      if (tokenUtils.isLoggedIn()) {
+        navigate('/home');
+      } else {
+        navigate('/login');
+      }
+    }, 2000);
+
+    // 컴포넌트가 언마운트되면 타이머 정리
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
