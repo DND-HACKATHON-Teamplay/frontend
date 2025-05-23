@@ -8,6 +8,7 @@ import RegisterElder from './pages/RegisterElder/RegisterElder';
 import DetailChat from './pages/DetailChat/DetailChat';
 import Setting from './pages/Setting/Setting';
 import Splash from './pages/Splash/Splash';
+import EditElderly from './pages/EditElderly/EditElderly';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="register" element={<RegisterElder />} />
         <Route path="detailchat" element={<DetailChat />} />
         <Route path="setting" element={<Setting />} />
+        <Route path="editelder" element={<EditElderly />} />
       </Routes>
     </Router>
   );

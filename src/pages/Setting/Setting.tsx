@@ -31,7 +31,7 @@ const Setting = () => {
         <span className={styles.SettingTitle}>설정</span>
       </div>
       <div className={styles.SettingContentWrapper}>
-        <button className={styles.SettingButton}>
+        <button className={styles.SettingButton} onClick={() => navigate('/editelder')}>
           <span className={styles.SettingText}>어르신 정보 수정</span>
           <img className={styles.ArrowRightIcon} src={arrowRight} alt="설정 버튼" />
         </button>
