@@ -22,9 +22,11 @@ const DetailChat = () => {
 
   const fetchChatData = async () => {
     try {
-      const formattedDate = new Date(date).toISOString().split('T')[0];
+      const selectedDate = location.state.selectedDate;
+      const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+
+      console.log('API 호출 날짜:', formattedDate);
       const response = await getChats(formattedDate);
-      console.log(response);
       setChatData(response);
     } catch (error) {
       console.error('채팅 내역 조회 실패:', error);
