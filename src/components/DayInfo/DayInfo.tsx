@@ -28,13 +28,13 @@ const DayInfo: React.FC<DayInfoProps> = ({
   };
 
   // API에서 데이터 가져오기
+  // DayInfo.tsx 수정
   const fetchDataFromAPI = async (): Promise<DayInfoData> => {
     if (!selectedDate) {
       onDataAvailabilityChange?.(false);
       return defaultDayInfo;
     }
 
-    // Removed setIsLoading call
     setError(null);
 
     try {
@@ -43,11 +43,20 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
       if (result.success && result.data) {
         const convertedData = dailyAPI.convertToDayInfoData(result.data);
+
+        // 실제 데이터가 있는지 확인 (모든 값이 null이 아닌지 체크)
+        const hasRealData =
+          convertedData.healthStatus !== null ||
+          convertedData.mindStatus !== null ||
+          convertedData.sleepTime !== null;
+
         console.log('✅ API 데이터 변환 완료:', {
           원본: result.data,
           변환후: convertedData,
+          실제데이터존재: hasRealData,
         });
-        onDataAvailabilityChange?.(true);
+
+        onDataAvailabilityChange?.(hasRealData);
         return convertedData;
       } else {
         // API 실패시 기본 데이터 반환
@@ -61,7 +70,6 @@ const DayInfo: React.FC<DayInfoProps> = ({
       onDataAvailabilityChange?.(false);
       return defaultDayInfo;
     }
-    // Removed setIsLoading call
   };
 
   const currentDayInfo = dayInfo || defaultDayInfo;
