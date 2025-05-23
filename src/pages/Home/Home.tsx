@@ -9,7 +9,7 @@ import fontStyles from '../../styles/typography.module.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
 
         // 사용자 정보 조회 시도
         try {
@@ -42,9 +42,9 @@ const Home = () => {
     checkAuthStatus();
   }, []);
 
-  const handleGoToLogin = () => {
-    navigate('/login');
-  };
+  // const handleGoToLogin = () => {
+  //   navigate('/login');
+  // };
 
   const handleLogout = async () => {
     if (!tokenUtils.isLoggedIn()) {
@@ -68,7 +68,7 @@ const Home = () => {
     } finally {
       // 성공/실패 관계없이 로컬 상태 정리
       tokenUtils.removeToken();
-      setIsLoggedIn(false);
+      // setIsLoggedIn(false);
       setUsername('');
       setIsLoggingOut(false);
       navigate('/login');
