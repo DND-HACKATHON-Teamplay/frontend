@@ -1,0 +1,68 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 40px;
+  position: relative;
+}
+
+.textSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.mainText {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #151719;
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.knockIcon {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  height: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+.bottomIcon {
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.splashIconImage {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* iPhone 상태바 영역 고려 */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .content {
+    padding-top: calc(60px + env(safe-area-inset-top));
+  }
+}
