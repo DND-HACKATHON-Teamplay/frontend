@@ -1,28 +1,24 @@
 .calendar {
   background-color: #ffffff;
-  padding: 0 16px 16px 16px;
+  padding: 24px 16px 16px 16px;
   max-width: 400px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0 auto;
 }
 
 .weekHeader {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-bottom: 16px;
-  padding-top: 16px;
+  margin-bottom: 8px;
 }
 
 .weekDay {
   text-align: center;
-  color: #333333;
-  font-size: 14px;
-  font-weight: 500;
+  color: var(--color-label-neutral);
   padding: 8px 0;
 }
 
 .weekDay.sunday {
-  color: #ff4444;
+  color: var(--color-negative-error);
 }
 
 .daysGrid {
@@ -107,32 +103,4 @@
 
 .dayButton.otherMonth .dayNumber {
   color: #cccccc;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 480px) {
-  .calendar {
-    padding: 16px 12px;
-  }
-
-  .dayButton {
-    height: 50px;
-  }
-
-  .yearMonth {
-    font-size: 20px;
-  }
-
-  .emojiCircle {
-    width: 24px;
-    height: 24px;
-  }
-
-  .emoji {
-    font-size: 12px;
-  }
-
-  .dayNumber {
-    font-size: 14px;
-  }
 }
