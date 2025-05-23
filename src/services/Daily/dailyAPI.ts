@@ -1,4 +1,5 @@
 import { tokenUtils } from '../../utils/auth';
+import axios from 'axios';
 
 // 일일 데이터 타입 정의 (기존 타입과 일치)
 export interface DailyData {
@@ -39,22 +40,14 @@ export const dailyAPI = {
         };
       }
 
-      const response = await fetch(
-        `${API_BASE_URL}/api/v1/call/daily?date=${encodeURIComponent(date)}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+      const response = await axios.get(`${API_BASE_URL}/api/v1/call/daily`, {
+        params: { date },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
-      if (!response.ok) {
-        throw new Error(`API 호출 실패: ${response.status}`);
-      }
-
-      const rawData = await response.json();
+      const rawData = response.data;
 
       // 필요한 데이터만 추출
       const dailyData: DailyData = {
@@ -72,6 +65,17 @@ export const dailyAPI = {
       };
     } catch (error) {
       console.error('일일 데이터 조회 실패:', error);
+
+      // axios 에러 처리
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        const message = error.response?.data?.message || error.message;
+        return {
+          success: false,
+          message: `API 호출 실패 (${status}): ${message}`,
+        };
+      }
+
       return {
         success: false,
         message: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.',
