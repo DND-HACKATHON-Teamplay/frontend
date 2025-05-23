@@ -43,6 +43,9 @@ const Home = () => {
   const handleGoToLogin = () => {
     navigate('/login');
   };
+  const handleGoToMap = () => {
+    navigate('/map');
+  };
 
   const handleLogout = async () => {
     if (!tokenUtils.isLoggedIn()) {
@@ -110,6 +113,9 @@ const Home = () => {
             </p>
             <button type="button" className={styles.loginButton} onClick={handleGoToLogin}>
               🔐 로그인 하러 가기
+            </button>
+            <button type="button" className={styles.MapButton} onClick={handleGoToMap}>
+              지도보러 가기
             </button>
           </div>
         )}
