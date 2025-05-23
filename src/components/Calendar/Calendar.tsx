@@ -114,7 +114,7 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateSelect, dayStat
                     <span className={styles.emoji}>{emoji}</span>
                   </div>
                 )}
-                <div className={styles.dayNumber}>{date.getDate()}</div>
+                <div className={`${styles.dayNumber} ${typo.caption1Medium}`}>{date.getDate()}</div>
               </div>
             </button>
           );

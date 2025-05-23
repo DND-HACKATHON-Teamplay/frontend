@@ -1,31 +1,32 @@
 .dayInfoContainer {
-  padding: 20px;
+  padding: 16px;
   background-color: #ffffff;
+  padding-top: 0;
 }
 
 .infoGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 
 .infoCard {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 16px 8px;
-  border-radius: 12px;
+  padding: 8px 16px 12px 16px;
+  border-radius: 16px;
   background-color: #f8f9fa;
-  min-height: 80px;
 }
 
 .infoLabel {
-  color: #666666;
+  color: var(--color-label-neutral);
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 8px;
-  text-align: center;
+  text-align: left;
+  width: 100%;
 }
 
 .infoValue {
@@ -33,42 +34,26 @@
   font-weight: 600;
   text-align: center;
   line-height: 1.2;
+  width: 100%;
 }
 
-/* 색상별 스타일 */
-.red {
-  color: #ff4444;
+/* 상태별 스타일 */
+.bad {
+  background-color: var(--color-negative-error-container);
+  color: var(--color-negative-error);
 }
 
-.green {
-  color: #00aa44;
+.normal {
+  background-color: var(--color-primary-container);
+  color: var(--color-primary);
 }
 
-.blue {
-  color: #000000;
+.good {
+  background-color: var(--color-positive-container);
+  color: var(--color-positive);
 }
 
-/* 모바일 반응형 */
-@media (max-width: 480px) {
-  .dayInfoContainer {
-    padding: 16px;
-  }
-
-  .infoGrid {
-    gap: 8px;
-  }
-
-  .infoCard {
-    padding: 12px 6px;
-    min-height: 70px;
-  }
-
-  .infoLabel {
-    font-size: 11px;
-    margin-bottom: 6px;
-  }
-
-  .infoValue {
-    font-size: 14px;
-  }
+.sleep {
+  background-color: var(--color-container-normal);
+  color: var(--color-label-normal);
 }

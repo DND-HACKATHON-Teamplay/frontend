@@ -21,7 +21,7 @@
   color: #333;
 }
 
-/* 달력 컨테이너 */
+/* 달력과 DayInfo를 하나로 묶는 컨테이너 */
 .calendarContainer {
   background-color: #ffffff;
   flex: 1;

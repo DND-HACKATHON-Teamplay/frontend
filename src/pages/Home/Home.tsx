@@ -82,7 +82,7 @@ const Home = () => {
         onSettingsClick={handleSettingsClick}
       />
 
-      {/* 달력 */}
+      {/* 달력과 DayInfo를 하나의 컨테이너로 묶음 */}
       <div className={styles.calendarContainer}>
         <Calendar
           selectedDate={selectedDate}
@@ -90,10 +90,10 @@ const Home = () => {
           dayStatuses={mockDayStatuses}
           currentDate={currentDate}
         />
-      </div>
 
-      {/* 하단 정보 섹션 */}
-      <DayInfo selectedDate={selectedDate} />
+        {/* DayInfo를 캘린더 바로 아래에 배치 */}
+        <DayInfo selectedDate={selectedDate} />
+      </div>
     </div>
   );
 };

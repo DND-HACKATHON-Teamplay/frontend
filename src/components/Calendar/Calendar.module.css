@@ -94,9 +94,7 @@
 }
 
 .dayNumber {
-  color: #000000;
-  font-size: 16px;
-  font-weight: 400;
+  color: var(--color-label-neutral);
   margin-top: auto;
   margin-bottom: 4px;
 }
