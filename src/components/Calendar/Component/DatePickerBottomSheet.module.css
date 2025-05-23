@@ -1,0 +1,132 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bottomSheet {
+  width: 100%;
+  background-color: var(--color-layer-elevated);
+  border-radius: 24px 24px 0 0;
+  padding: 0 16px 40px 16px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 24px 0;
+}
+
+.title {
+  color: var(--color-label-normal);
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.yearSelector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 16px;
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrowButton.disabledArrow {
+  cursor: not-allowed;
+}
+
+.arrowIcon {
+  width: 10px;
+  height: 18px;
+}
+
+.yearText {
+  color: var(--color-label-strong);
+  min-width: 100px;
+  text-align: center;
+}
+
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.monthButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--color-container-normal);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.monthButton:hover:not(.disabledMonth) {
+  background-color: var(--color-container-hover);
+}
+
+.monthButton.currentMonth {
+  background-color: var(--color-positive);
+}
+
+.monthButton.disabledMonth {
+  background-color: var(--color-container-disabled);
+  cursor: not-allowed;
+}
+
+.monthText {
+  color: var(--color-label-normal);
+}
+
+.monthButton.currentMonth .monthText {
+  color: var(--color-inverse-white);
+}
+
+.monthButton.disabledMonth .monthText {
+  color: var(--color-label-disabled);
+}
