@@ -115,13 +115,6 @@
   height: 20px;
 }
 
-/* iPhone 상태바 영역 고려 */
-@supports (padding-top: env(safe-area-inset-top)) {
-  .content {
-    padding-top: calc(60px + env(safe-area-inset-top));
-  }
-}
-
 /* iPhone 하단 홈 인디케이터 영역 고려 */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .buttonSection {
