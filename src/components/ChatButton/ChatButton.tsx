@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ChatButton.module.css';
 import typo from '../../styles/typography.module.css';
 import chatIcon from '../../assets/home/chat.svg';
+import chatDisabledIcon from '../../assets/home/chat-disabled.svg';
 
 interface ChatButtonProps {
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-const ChatButton: React.FC<ChatButtonProps> = ({ onClick }) => {
+const ChatButton: React.FC<ChatButtonProps> = ({ onClick, disabled = false }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    if (disabled) return;
+
     if (onClick) {
       onClick();
     } else {
@@ -22,12 +26,18 @@ const ChatButton: React.FC<ChatButtonProps> = ({ onClick }) => {
 
   return (
     <div className={styles.chatButtonContainer}>
-      <button type="button" className={styles.chatButton} onClick={handleClick}>
-        {/* 채팅 아이콘 */}
-        <img src={chatIcon} alt="채팅" className={styles.chatIcon} />
+      <button
+        type="button"
+        className={`${styles.chatButton} ${disabled ? styles.disabled : ''}`}
+        onClick={handleClick}
+        disabled={disabled}
+      >
+        <img src={disabled ? chatDisabledIcon : chatIcon} alt="채팅" className={styles.chatIcon} />
 
         <span
-          className={`${styles.chatButtonText} ${typo.body1ReadingBold} ${typo.body1NormalBold}`}
+          className={`${styles.chatButtonText} ${
+            disabled ? typo.body1ReadingMedium : `${typo.body1ReadingBold} ${typo.body1NormalBold}`
+          }`}
         >
           전체 대화보기
         </span>

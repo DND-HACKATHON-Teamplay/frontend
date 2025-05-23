@@ -1,30 +1,57 @@
 import type React from 'react';
 import styles from './DayInfo.module.css';
 import typo from '../../styles/typography.module.css';
+import { mockDayStatusesRaw } from '../../data/mockData';
 
 interface DayInfoData {
-  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY';
-  sleepTime: number;
-  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY';
+  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
+  sleepTime: number | null;
+  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
 }
 
 interface DayInfoProps {
   selectedDate?: Date;
   dayInfo?: DayInfoData;
+  onDataAvailabilityChange?: (hasData: boolean) => void;
 }
 
-const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo }) => {
-  // 기본 데이터
+const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo, onDataAvailabilityChange }) => {
+  // 기본 데이터 (데이터가 없는 경우)
   const defaultDayInfo: DayInfoData = {
-    healthStatus: 'BAD',
-    sleepTime: 7,
-    mindStatus: 'HAPPY',
+    healthStatus: null,
+    sleepTime: null,
+    mindStatus: null,
   };
 
-  const currentDayInfo = dayInfo || defaultDayInfo;
+  // 선택된 날짜에 해당하는 데이터 찾기
+  const getDataForSelectedDate = (): DayInfoData => {
+    if (!selectedDate) {
+      onDataAvailabilityChange?.(false);
+      return defaultDayInfo;
+    }
 
-  // 상태값을 CSS 클래스로 변환
-  const getStatusClass = (status: string) => {
+    const dateString = selectedDate.toISOString().split('T')[0];
+    const dayData = mockDayStatusesRaw.find(data => data.date === dateString);
+
+    if (dayData) {
+      onDataAvailabilityChange?.(true);
+      return {
+        healthStatus: dayData.healthStatus,
+        sleepTime: 7, // 목 데이터에서는 고정값
+        mindStatus: dayData.mindStatus,
+      };
+    }
+
+    onDataAvailabilityChange?.(false);
+    return defaultDayInfo;
+  };
+
+  const currentDayInfo = dayInfo || getDataForSelectedDate();
+
+  // 상태값을 CSS 클래스로 변환 (null인 경우 sleep 스타일 사용)
+  const getStatusClass = (status: string | null) => {
+    if (status === null) return 'sleep';
+
     switch (status) {
       case 'BAD':
         return 'bad';
@@ -33,12 +60,14 @@ const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo }) => {
       case 'HAPPY':
         return 'happy';
       default:
-        return 'normal';
+        return 'sleep';
     }
   };
 
-  // 상태값을 한국어로 변환
-  const getStatusText = (status: string) => {
+  // 상태값을 한국어로 변환 (null인 경우 '-' 표시)
+  const getStatusText = (status: string | null) => {
+    if (status === null) return '-';
+
     switch (status) {
       case 'BAD':
         return '나쁨';
@@ -47,8 +76,13 @@ const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo }) => {
       case 'HAPPY':
         return '좋음';
       default:
-        return '보통';
+        return '-';
     }
+  };
+
+  // 수면시간 표시 (null인 경우 '-' 표시)
+  const getSleepTimeText = (sleepTime: number | null) => {
+    return sleepTime === null ? '-' : `${sleepTime}시간`;
   };
 
   return (
@@ -76,7 +110,7 @@ const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo }) => {
         <div className={`${styles.infoCard} ${styles.sleep}`}>
           <div className={`${styles.infoLabel} ${typo.caption1Medium}`}>수면시간</div>
           <div className={`${styles.infoValue} ${typo.body1NormalBold}`}>
-            {currentDayInfo.sleepTime}시간
+            {getSleepTimeText(currentDayInfo.sleepTime)}
           </div>
         </div>
       </div>

@@ -18,13 +18,22 @@
   transition: all 0.2s ease;
 }
 
-.chatButton:hover {
+.chatButton:hover:not(.disabled) {
   background-color: #009a44;
 }
 
-.chatButton:active {
+.chatButton:active:not(.disabled) {
   background-color: #008a3a;
   transform: scale(0.98);
+}
+
+.chatButton.disabled {
+  background-color: var(--color-container-disabled);
+  cursor: not-allowed;
+}
+
+.chatButton.disabled .chatButtonText {
+  color: var(--color-label-disabled);
 }
 
 .chatIcon {

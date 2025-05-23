@@ -16,10 +16,11 @@ const Home = () => {
   const [username, setUsername] = useState('');
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
 
   // 달력 관련 state
   const [currentDate, setCurrentDate] = useState(new Date(2025, 4, 1)); // 2025년 5월
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 28)); // 28일 선택
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24)); // 28일 선택
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -66,6 +67,11 @@ const Home = () => {
     console.log('설정 버튼 클릭됨');
   };
 
+  // 데이터 가용성 변경 핸들러
+  const handleDataAvailabilityChange = (hasData: boolean) => {
+    setHasDataForSelectedDate(hasData);
+  };
+
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
@@ -92,10 +98,13 @@ const Home = () => {
           currentDate={currentDate}
         />
 
-        <DayInfo selectedDate={selectedDate} />
+        <DayInfo
+          selectedDate={selectedDate}
+          onDataAvailabilityChange={handleDataAvailabilityChange}
+        />
 
         {/* 채팅 버튼 */}
-        <ChatButton />
+        <ChatButton disabled={!hasDataForSelectedDate} />
       </div>
     </div>
   );
