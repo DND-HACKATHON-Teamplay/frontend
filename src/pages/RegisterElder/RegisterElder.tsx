@@ -154,7 +154,7 @@ const RegisterElder = () => {
 
       const relationshipMap: Record<string, string> = {
         자식: 'CHILD',
-        손자: 'GRAND_CHILD',
+        손자: 'GRANDCHILD',
         형제: 'SIBLING',
         친척: 'OTHER',
       };

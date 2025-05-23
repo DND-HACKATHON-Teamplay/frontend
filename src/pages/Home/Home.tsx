@@ -35,13 +35,12 @@ const Home = () => {
         try {
           // 어르신 등록 여부 확인
           const isRegisteredResponse = await isRegisteredApi();
-          if (isRegisteredResponse?.success || isRegisteredResponse.data) {
+          if (isRegisteredResponse) {
             navigate('/register');
             return; // 더 이상 진행하지 않음
           }
         } catch (error) {
           console.error('등록 여부 확인 실패:', error);
-          navigate('/login');
         }
       } else {
         navigate('/login');

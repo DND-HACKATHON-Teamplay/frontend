@@ -4,6 +4,7 @@ import { tokenUtils } from '../utils/auth';
 const GET_CHATS_API = 'https://bb-konkuk.shop/api/v1/conversation/by-call-date?date=';
 
 export const getChats = async (date: string) => {
+  console.log(date);
   const token = tokenUtils.getToken();
   try {
     const response = await axios.get(`${GET_CHATS_API}${date}`, {
