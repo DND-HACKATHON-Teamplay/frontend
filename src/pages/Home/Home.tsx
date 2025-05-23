@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../../services/api';
-import type { UserInfo } from '../../services/api';
+import { authAPI } from '../../services/Login/auth';
+import type { UserInfo } from '../../services/Login/auth';
 import { tokenUtils } from '../../utils/auth';
 import classNames from 'classnames';
 import styles from './Home.module.css';
@@ -33,6 +33,8 @@ const Home = () => {
           console.error('사용자 정보 조회 실패:', error);
           setUsername('사용자');
         }
+      } else {
+        navigate('/login');
       }
       setIsLoading(false);
     };
@@ -88,31 +90,21 @@ const Home = () => {
       <div className={styles.container}>
         <span className={classNames(styles.testText, fontStyles.displayD2Bold)}>연습용</span>
         <h1>🏠 Home Page</h1>
-        {isLoggedIn ? (
-          <div className={styles.welcomeSection}>
-            <p>
-              <span className={styles.username}>{username}</span>님, 환영합니다!
-            </p>
-            <p>성공적으로 로그인되었습니다!!</p>
-            <button
-              type="button"
-              className={styles.logoutButton}
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-            >
-              {isLoggingOut ? '🔄 로그아웃 중...' : '🔓 로그아웃'}
-            </button>
-          </div>
-        ) : (
-          <div className={styles.loginSection}>
-            <p className={classNames(styles.testText, fontStyles.body1NormalBold)}>
-              구글 또는 카카오 로그인 후 이용 가능한 서비스입니다.
-            </p>
-            <button type="button" className={styles.loginButton} onClick={handleGoToLogin}>
-              🔐 로그인 하러 가기
-            </button>
-          </div>
-        )}
+
+        <div className={styles.welcomeSection}>
+          <p>
+            <span className={styles.username}>{username}</span>님, 환영합니다!
+          </p>
+          <p>성공적으로 로그인되었습니다!!</p>
+          <button
+            type="button"
+            className={styles.logoutButton}
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? '🔄 로그아웃 중...' : '🔓 로그아웃'}
+          </button>
+        </div>
       </div>
     </div>
   );

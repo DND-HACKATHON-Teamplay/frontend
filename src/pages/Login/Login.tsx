@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { oauthAPI } from '../../services/api';
+import { oauthAPI } from '../../services/Login/auth';
 import { tokenUtils } from '../../utils/auth';
 import styles from './Login.module.css';
 

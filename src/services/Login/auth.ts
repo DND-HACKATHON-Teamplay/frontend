@@ -1,4 +1,4 @@
-import { tokenUtils } from '../utils/auth';
+import { tokenUtils } from '../../utils/auth';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://bb-konkuk.shop';
 
