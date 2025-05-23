@@ -1,0 +1,78 @@
+.SelectTimeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.SelectTimeTitle {
+  margin: 0;
+  color: #151719;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.14px;
+}
+.TimeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.TimeInput {
+  width: 100%;
+  padding: 11px 47px;
+  border-radius: 8px;
+  border: 1px solid #e7e9ec;
+  color: #151719;
+  text-align: center;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 50px; /* 138.889% */
+  letter-spacing: -1.08px;
+}
+.DotsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+.Dot {
+  width: 5px;
+  height: 5px;
+  background: #151719;
+  border-radius: 50%;
+}
+.AMPMContainer {
+  display: flex;
+  flex-direction: column;
+  width: 62px;
+}
+.PMButton,
+.AMButton,
+.PMButtonActive,
+.AMButtonActive {
+  padding: 6px 19px;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e7e9ec;
+  background: #fff;
+
+  color: #151719;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
+.AMButton,
+.AMButtonActive {
+  border-radius: 0 0 8px 8px;
+}
+.PMButtonActive,
+.AMButtonActive {
+  background: #e6f7e9;
+  color: #0bbd49;
+}

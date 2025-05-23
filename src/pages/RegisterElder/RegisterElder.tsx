@@ -3,6 +3,9 @@ import InputBar from '../../components/InputBar/InputBar';
 import styles from './RegisterElder.module.css';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import Button from '../../components/Button/Button';
+import { postRegisterElder } from '../../services/Register/register';
+import { RegisterModal } from './RegisterModal/RegisterModal';
+import SelectTime from '../../components/SelectTime/SelectTime';
 
 const genderSelectArr = ['남성', '여성'];
 const relationShipSelectArr = ['자식', '손자', '형제', '친척'];
@@ -15,10 +18,16 @@ const RegisterElder = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isPhoneFormatted, setIsPhoneFormatted] = useState(false);
   const [relationship, setRelationship] = useState('자식');
+  const [hour, setHour] = useState<string>('12');
+  const [minutes, setMinutes] = useState<string>('00');
+
+  const [isAm, setIsAm] = useState<boolean>(false);
 
   const [isAbled, setIsAbled] = useState(false);
   const birthInputRef = useRef<HTMLInputElement>(null);
   const phoneInputRef = useRef<HTMLInputElement>(null);
+
+  const [modalState, setModalState] = useState<boolean>(false);
 
   // 생년월일 입력 처리
   const handleInputBirth = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +78,48 @@ const RegisterElder = () => {
     }
   };
 
+  const handleChangeHour = (e: ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, '');
+    setHour(raw); // 일단 필터링된 숫자만 반영 (검증은 blur 또는 enter에서)
+  };
+
+  const handleBlurHour = () => {
+    const num = parseInt(hour, 10);
+    if (!isNaN(num)) {
+      const clamped = Math.min(Math.max(num, 1), 12);
+      setHour(clamped.toString().padStart(2, '0'));
+    } else {
+      setHour('12'); // 기본값
+    }
+  };
+
+  const handleKeyDownHour = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleBlurHour();
+    }
+  };
+
+  const handleChangeMinutes = (e: ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, '');
+    setMinutes(raw);
+  };
+
+  const handleBlurMinutes = () => {
+    const num = parseInt(minutes, 10);
+    if (!isNaN(num)) {
+      const clamped = Math.min(Math.max(num, 0), 59);
+      setMinutes(clamped.toString().padStart(2, '0'));
+    } else {
+      setMinutes('00');
+    }
+  };
+
+  const handleKeyDownMinutes = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleBlurMinutes();
+    }
+  };
+
   const handleInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setElderName(e.target.value);
   };
@@ -93,6 +144,46 @@ const RegisterElder = () => {
     const isPhoneValid = !!formatPhoneNumber(phoneNumber.replace(/\D/g, ''));
     setIsAbled(isNameValid && isBirthValid && isPhoneValid);
   }, [elderName, birth, phoneNumber]);
+
+  const registerElder = async () => {
+    try {
+      const formattedBirth = birth.replace(/\D/g, ''); // YYYYMMDD
+      const birthDate = `${formattedBirth.slice(0, 4)}-${formattedBirth.slice(4, 6)}-${formattedBirth.slice(6, 8)}`;
+
+      const genderCode = gender === '남성' ? 'MALE' : 'FEMALE';
+
+      const relationshipMap: Record<string, string> = {
+        자식: 'CHILD',
+        손자: 'GRAND_CHILD',
+        형제: 'SIBLING',
+        친척: 'OTHER',
+      };
+      const relationshipCode = relationshipMap[relationship];
+
+      const plainPhone = phoneNumber.replace(/\D/g, ''); // 숫자만
+
+      // AM/PM 적용
+      let hr = parseInt(hour, 10);
+      if (!isAm && hr !== 12) hr += 12; // PM일 때 12 더함 (단, 12시는 그대로)
+      if (isAm && hr === 12) hr = 0; // AM 12시는 00시로 처리
+      const hour24 = hr.toString().padStart(2, '0');
+      const timeToCall = `${hour24}:${minutes.padStart(2, '0')}:00`; // 초는 항상 "00"
+
+      const response = await postRegisterElder(
+        elderName,
+        birthDate,
+        genderCode,
+        plainPhone,
+        relationshipCode,
+        timeToCall,
+      );
+
+      console.log('등록 성공:', response);
+      setModalState(true);
+    } catch (error) {
+      console.error('어르신 등록 실패:', error);
+    }
+  };
 
   return (
     <div className={styles.PageWrapper}>
@@ -137,15 +228,25 @@ const RegisterElder = () => {
           selectedButton={relationship}
           setSelectedButton={setRelationship}
         />
+        <SelectTime
+          hour={hour}
+          minutes={minutes}
+          isAm={isAm}
+          onChangeHour={handleChangeHour}
+          onChangeMinutes={handleChangeMinutes}
+          onBlurHour={handleBlurHour}
+          onBlurMinutes={handleBlurMinutes}
+          onKeyDownHour={handleKeyDownHour}
+          onKeyDownMinutes={handleKeyDownMinutes}
+          setIsAm={setIsAm}
+        />
       </div>
       <div className={styles.ButtonWrapper}>
-        <Button
-          onClick={() => console.log(elderName, birth, gender, phoneNumber, relationship)}
-          disabled={!isAbled}
-        >
+        <Button onClick={registerElder} disabled={!isAbled}>
           다음
         </Button>
       </div>
+      <RegisterModal modalState={modalState} setModalState={setModalState} />
     </div>
   );
 };
