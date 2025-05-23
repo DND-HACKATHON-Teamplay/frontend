@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../../services/Login/auth';
-import type { UserInfo } from '../../services/Login/auth';
 import { tokenUtils } from '../../utils/auth';
 import { dailyAPI, type DayInfoData } from '../../services/Daily/dailyAPI';
 import Header from '../../components/Calendar/Component/Header';
@@ -11,10 +9,10 @@ import ChatButton from '../../components/ChatButton/ChatButton';
 import DatePickerBottomSheet from '../../components/Calendar/Component/DatePickerBottomSheet';
 import type { DayStatus } from '../../data/mockData';
 import styles from './Home.module.css';
+import { isRegisteredApi } from '../../services/isRegistered';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -88,15 +86,15 @@ const Home = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
-        // 사용자 정보 조회 시도
-        try {
-          const result = await authAPI.getUserInfo();
-          if (result.success && result.data) {
-            const userInfo = result.data as UserInfo;
-            console.log('사용자:', userInfo.name || userInfo.email || '사용자');
+       try {
+          // 어르신 등록 여부 확인
+          const isRegisteredResponse = await isRegisteredApi();
+          if (isRegisteredResponse) {
+            navigate('/register');
+            return; // 더 이상 진행하지 않음
           }
         } catch (error) {
-          console.error('사용자 정보 조회 실패:', error);
+          console.error('등록 여부 확인 실패:', error);
         }
 
         // 인증 확인 후 달력 데이터 로딩
@@ -104,7 +102,6 @@ const Home = () => {
       } else {
         navigate('/login');
       }
-      setIsLoading(false);
     };
 
     checkAuthStatus();
@@ -159,20 +156,13 @@ const Home = () => {
   // 설정 버튼 클릭 핸들러
   const handleSettingsClick = () => {
     console.log('설정 버튼 클릭됨');
+    navigate('/setting');
   };
 
   // 데이터 가용성 변경 핸들러
   const handleDataAvailabilityChange = (hasData: boolean) => {
     setHasDataForSelectedDate(hasData);
   };
-
-  if (isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loadingText}>🔄 로딩 중...</div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.homeContainer}>
@@ -205,9 +195,6 @@ const Home = () => {
           selectedDate={selectedDate}
           dayInfo={dayInfo}
         />
-        <button type="button" onClick={() => navigate('/register')}>
-          등록하기로 가기
-        </button>
       </div>
 
       {/* 날짜 선택 바텀시트 */}

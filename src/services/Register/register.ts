@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { tokenUtils } from '../../utils/auth';
 
-const REGISTER_API = 'https://bb-konkuk.shop/api/v1/elderly';
+const REGISTER_API = 'https://bb-konkuk.shop/api/v1/elderly/create';
 
 export const postRegisterElder = async (
   name: string,

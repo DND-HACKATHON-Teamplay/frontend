@@ -165,13 +165,13 @@ export const colors = {
 
   // Positive
   positive: {
-    value: '#0BBD49',
-    light: '#0BBD49',
-    dark: '#0BBD49',
+    value: '#25D085',
+    light: '#25D085',
+    dark: '#25D085',
   },
   'positive-container': {
-    value: '#E6F7E9',
-    light: '#E6F7E9',
+    value: '#DDFDEF',
+    light: '#DDFDEF',
     dark: '#003D0D',
   },
 
