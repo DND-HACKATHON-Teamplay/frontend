@@ -5,12 +5,25 @@ import typo from '../../styles/typography.module.css';
 import chatIcon from '../../assets/home/chat.svg';
 import chatDisabledIcon from '../../assets/home/chat-disabled.svg';
 
+interface DayInfoData {
+  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
+  sleepTime: number | null;
+  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
+}
+
 interface ChatButtonProps {
   onClick?: () => void;
   disabled?: boolean;
+  selectedDate: Date | undefined;
+  dayInfo: DayInfoData | undefined;
 }
 
-const ChatButton: React.FC<ChatButtonProps> = ({ onClick, disabled = false }) => {
+const ChatButton: React.FC<ChatButtonProps> = ({
+  onClick,
+  disabled = false,
+  selectedDate,
+  dayInfo,
+}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -20,7 +33,12 @@ const ChatButton: React.FC<ChatButtonProps> = ({ onClick, disabled = false }) =>
       onClick();
     } else {
       // 전체대화 페이지로 이동 (경로는 실제 라우트에 맞게 수정 필요)
-      navigate('/chat');
+      navigate('/detailchat', {
+        state: {
+          selectedDate: selectedDate,
+          dayInfo: dayInfo,
+        },
+      });
     }
   };
 

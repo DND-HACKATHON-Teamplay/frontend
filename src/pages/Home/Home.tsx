@@ -11,6 +11,12 @@ import DatePickerBottomSheet from '../../components/Calendar/Component/DatePicke
 import { mockDayStatuses } from '../../data/mockData';
 import styles from './Home.module.css';
 
+interface DayInfoData {
+  healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
+  sleepTime: number | null;
+  mindStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
+}
+
 const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +26,9 @@ const Home = () => {
   // 달력 관련 state
   const [currentDate, setCurrentDate] = useState(new Date(2025, 4, 1));
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24));
+
+  // 해당 날 정보
+  const [dayInfo, setDayInfo] = useState<DayInfoData>();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -104,11 +113,17 @@ const Home = () => {
 
         <DayInfo
           selectedDate={selectedDate}
+          dayInfo={dayInfo}
+          setDayInfo={setDayInfo}
           onDataAvailabilityChange={handleDataAvailabilityChange}
         />
 
         {/* 채팅 버튼 */}
-        <ChatButton disabled={!hasDataForSelectedDate} />
+        <ChatButton
+          disabled={!hasDataForSelectedDate}
+          selectedDate={selectedDate}
+          dayInfo={dayInfo}
+        />
         <button type="button" onClick={() => navigate('/register')}>
           등록하기로 가기
         </button>
