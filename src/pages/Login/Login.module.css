@@ -11,23 +11,44 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   position: relative;
 }
 
 .logoSection {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 80px;
+  padding-top: 40px;
 }
 
 .loginGif {
   width: auto;
   height: auto;
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 250px;
+  max-height: 250px;
   object-fit: contain;
+}
+
+.descriptionSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 215px;
+}
+
+.logoImage {
+  width: auto;
+  height: 40px;
+  margin-bottom: 12px;
+}
+
+.descriptionText {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  text-align: center;
+  font-weight: 500;
 }
 
 .buttonSection {
@@ -38,20 +59,25 @@
   margin-bottom: 40px;
 }
 
-.googleButton {
+.googleButton,
+.kakaoButton {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 56px;
-  background-color: white;
-  border: 1px solid #e7e9ec;
   border-radius: 28px;
-  color: #3c4043;
-  cursor: pointer;
-  transition: all 0.2s ease;
   font-size: 18px;
   font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.googleButton {
+  background-color: white;
+  border: 1px solid #e7e9ec;
+  color: #3c4043;
 }
 
 .googleButton:hover {
@@ -62,27 +88,10 @@
   background-color: #f1f3f4;
 }
 
-.googleIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-}
-
 .kakaoButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 56px;
   background-color: #fee500;
-  border-radius: 28px;
   border: none;
   color: #3c4043;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 18px;
-  font-weight: 700;
 }
 
 .kakaoButton:hover {
@@ -93,11 +102,18 @@
   background-color: #f9a825;
 }
 
+.googleIcon,
 .kakaoIcon {
+  position: absolute;
+  left: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+}
+
+.iconImage {
+  width: 20px;
+  height: 20px;
 }
 
 /* iPhone 상태바 영역 고려 */
