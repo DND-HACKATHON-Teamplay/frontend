@@ -44,7 +44,6 @@ const Home = () => {
       } else {
         navigate('/login');
       }
-      setIsLoading(false);
     };
 
     checkAuthStatus();
