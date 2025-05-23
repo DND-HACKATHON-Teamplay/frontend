@@ -9,7 +9,7 @@ import Calendar from '../../components/Calendar/Calendar';
 import DayInfo from '../../components/DayInfo/DayInfo';
 import ChatButton from '../../components/ChatButton/ChatButton';
 import DatePickerBottomSheet from '../../components/Calendar/Component/DatePickerBottomSheet';
-import { calculateScore, type DayStatus } from '../../data/mockData';
+import type { DayStatus } from '../../data/mockData';
 import styles from './Home.module.css';
 
 const Home = () => {
