@@ -1,6 +1,8 @@
 import type React from 'react';
 import styles from './Header.module.css';
 import typo from '../../../styles/typography.module.css';
+import settingIcon from '../../../assets/home/setting.svg';
+import dropdownIcon from '../../../assets/home/dropdown.svg';
 
 interface HeaderProps {
   currentDate: Date;
@@ -25,12 +27,12 @@ const Header: React.FC<HeaderProps> = ({ currentDate, onDatePickerClick, onSetti
         <span className={`${styles.dateText} ${typo.headingH4Bold}`}>
           {formatDate(currentDate)}
         </span>
-        <img src="/src/assets/home/dropdown.svg" alt="dropdown" className={styles.dropdownIcon} />
+        <img src={dropdownIcon} alt="dropdown" className={styles.dropdownIcon} />
       </button>
 
       {/* 오른쪽 설정 버튼 */}
       <button type="button" className={styles.settingsButton} onClick={onSettingsClick}>
-        <img src="/src/assets/home/setting.svg" alt="settings" className={styles.settingsIcon} />
+        <img src={settingIcon} alt="settings" className={styles.settingsIcon} />
       </button>
     </div>
   );

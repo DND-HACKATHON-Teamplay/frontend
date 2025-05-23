@@ -76,7 +76,7 @@ const Home = () => {
           });
         }
       } catch (error) {
-        console.warn(`❌ ${day}일 데이터 로딩 실패:`, error);
+        console.warn(` ${day}일 데이터 로딩 실패:`, error);
       }
     }
 
