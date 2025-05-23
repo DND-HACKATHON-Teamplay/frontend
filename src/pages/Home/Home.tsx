@@ -28,6 +28,63 @@ const Home = () => {
   // 서버 데이터를 포함한 달력 상태
   const [calendarStatuses, setCalendarStatuses] = useState<DayStatus[]>([]);
 
+  const calculateScore = (healthStatus: string | null, mindStatus: string | null): number => {
+    const getStatusScore = (status: string | null): number => {
+      if (status === null) return 0;
+
+      switch (status) {
+        case 'HAPPY':
+          return 50;
+        case 'NORMAL':
+          return 30;
+        case 'BAD':
+          return 10;
+        default:
+          return 0;
+      }
+    };
+
+    return getStatusScore(healthStatus) + getStatusScore(mindStatus);
+  };
+
+  // 전체 달력 데이터 로딩 함수
+  const loadCalendarData = async (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const newStatuses: DayStatus[] = [];
+
+    // 현재 달의 모든 날짜에 대해 데이터 조회
+    for (let day = 1; day <= daysInMonth; day++) {
+      const currentDay = new Date(year, month, day);
+
+      // 미래 날짜는 건너뛰기
+      if (currentDay > today) continue;
+
+      try {
+        const dateString = dailyAPI.formatDateForAPI(currentDay);
+        const result = await dailyAPI.getDailyData(dateString);
+
+        if (result.success && result.data) {
+          const convertedData = dailyAPI.convertToDayInfoData(result.data);
+          const score = calculateScore(convertedData.healthStatus, convertedData.mindStatus);
+
+          newStatuses.push({
+            date: currentDay.toISOString().split('T')[0],
+            ringIcon: `${score}.svg`,
+          });
+        }
+      } catch (error) {
+        console.warn(`❌ ${day}일 데이터 로딩 실패:`, error);
+      }
+    }
+
+    setCalendarStatuses(newStatuses);
+  };
+
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
@@ -41,6 +98,9 @@ const Home = () => {
         } catch (error) {
           console.error('사용자 정보 조회 실패:', error);
         }
+
+        // 인증 확인 후 달력 데이터 로딩
+        await loadCalendarData(currentDate);
       } else {
         navigate('/login');
       }
@@ -48,23 +108,13 @@ const Home = () => {
     };
 
     checkAuthStatus();
-  }, [navigate]);
+  }, [navigate, currentDate]);
 
-  // dayInfo가 업데이트될 때 달력 상태도 업데이트
+  // dayInfo가 업데이트될 때 달력 상태도 업데이트 (개별 날짜)
   useEffect(() => {
-    console.log('📅 달력 업데이트 체크:', { dayInfo, selectedDate });
-
     if (dayInfo && selectedDate && (dayInfo.healthStatus !== null || dayInfo.mindStatus !== null)) {
-      const dateString = dailyAPI.formatDateForAPI(selectedDate);
+      const dateString = selectedDate.toISOString().split('T')[0]; // Calendar 형식과 맞춤
       const score = calculateScore(dayInfo.healthStatus, dayInfo.mindStatus);
-
-      console.log('🎯 링 아이콘 업데이트:', {
-        날짜: dateString,
-        건강상태: dayInfo.healthStatus,
-        심리상태: dayInfo.mindStatus,
-        점수: score,
-        링: `${score}.svg`,
-      });
 
       // 기존 달력 상태에서 해당 날짜 업데이트
       setCalendarStatuses(prev => {
@@ -85,7 +135,6 @@ const Home = () => {
   // 달력 날짜 선택 핸들러
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
-    console.log('선택된 날짜:', date.toLocaleDateString('ko-KR'));
   };
 
   // 헤더의 날짜 선택기 클릭 핸들러
@@ -99,9 +148,12 @@ const Home = () => {
   };
 
   // 바텀시트에서 날짜 선택 핸들러
-  const handleDatePickerSelect = (date: Date) => {
+  const handleDatePickerSelect = async (date: Date) => {
     setCurrentDate(date);
     setSelectedDate(new Date(date.getFullYear(), date.getMonth(), 1));
+
+    // 새로운 달을 선택했을 때 해당 달의 데이터도 다시 로딩
+    await loadCalendarData(date);
   };
 
   // 설정 버튼 클릭 핸들러

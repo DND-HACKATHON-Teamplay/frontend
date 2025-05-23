@@ -4,9 +4,9 @@ import axios from 'axios';
 // 일일 데이터 타입 정의 (기존 타입과 일치)
 export interface DailyData {
   id: number;
-  healthStatus: 'HAPPY' | 'NORMAL' | 'SAD';
+  healthStatus: 'HAPPY' | 'NORMAL' | 'BAD';
   sleepTime: number;
-  mindStatus: 'HAPPY' | 'NORMAL' | 'SAD';
+  mindStatus: 'HAPPY' | 'NORMAL' | 'BAD';
   createdDate: string;
   updatedDate: string;
 }
@@ -40,23 +40,13 @@ export const dailyAPI = {
         };
       }
 
-      // 디버깅용 로그
-      console.log('🔍 API 요청 정보:');
-      console.log('- URL:', `${API_BASE_URL}/api/v1/call/daily`);
-      console.log('- Date:', date);
-      console.log('- Token (첫 20자):', token.substring(0, 20) + '...');
-
       const response = await axios.get(`${API_BASE_URL}/api/v1/call/daily`, {
         params: { date },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log('✅ API 응답 성공:', response.data);
       const rawData = response.data;
-      console.log('🔍 서버 원본 응답:', rawData);
-      console.log('🔍 sleepTime 값 확인:', rawData.sleepTime, typeof rawData.sleepTime);
 
       // 필요한 데이터만 추출 (null/undefined 처리 추가)
       const dailyData: DailyData = {
@@ -68,27 +58,15 @@ export const dailyAPI = {
         updatedDate: rawData.updatedDate || new Date().toISOString(),
       };
 
-      console.log('📦 추출된 데이터:', dailyData);
-
       return {
         success: true,
         data: dailyData,
       };
     } catch (error) {
-      console.error('❌ 일일 데이터 조회 실패:', error);
-
       // axios 에러 처리
       if (axios.isAxiosError(error)) {
         const status = error.response?.status;
-        const statusText = error.response?.statusText;
         const errorData = error.response?.data;
-
-        console.error('🚨 에러 세부 정보:');
-        console.error('- Status:', status);
-        console.error('- Status Text:', statusText);
-        console.error('- Error Data:', errorData);
-        console.error('- Request URL:', error.config?.url);
-        console.error('- Request Params:', error.config?.params);
 
         const message = errorData?.message || error.message;
         return {
@@ -114,13 +92,13 @@ export const dailyAPI = {
 
   // API 상태를 DayInfo 상태로 변환
   convertToDayInfoData: (apiData: DailyData): DayInfoData => {
-    const convertStatus = (status: 'HAPPY' | 'NORMAL' | 'SAD'): 'BAD' | 'NORMAL' | 'HAPPY' => {
+    const convertStatus = (status: 'HAPPY' | 'NORMAL' | 'BAD'): 'BAD' | 'NORMAL' | 'HAPPY' => {
       switch (status) {
         case 'HAPPY':
           return 'HAPPY';
         case 'NORMAL':
           return 'NORMAL';
-        case 'SAD':
+        case 'BAD':
           return 'BAD';
         default:
           return 'NORMAL';
@@ -132,11 +110,6 @@ export const dailyAPI = {
       sleepTime: apiData.sleepTime,
       mindStatus: convertStatus(apiData.mindStatus),
     };
-
-    console.log('🔄 데이터 변환:', {
-      입력: apiData,
-      출력: converted,
-    });
 
     return converted;
   },

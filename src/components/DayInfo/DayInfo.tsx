@@ -113,7 +113,6 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
     const loadData = async () => {
       const newDayInfo = await fetchDataFromAPI();
-      console.log('🔍 로드된 데이터:', newDayInfo);
       setDayInfo?.(newDayInfo);
     };
 
