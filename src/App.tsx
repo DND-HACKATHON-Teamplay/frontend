@@ -6,11 +6,13 @@ import './App.css';
 import './styles/globals.css';
 import RegisterElder from './pages/RegisterElder/RegisterElder';
 import DetailChat from './pages/DetailChat/DetailChat';
+import Splash from './pages/Splash/Splash';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/splash" element={<Splash />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/oauth/callback" element={<OAuthCallback />} />
