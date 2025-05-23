@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import './App.css';
 import './styles/globals.css';
 import RegisterElder from './pages/RegisterElder/RegisterElder';
+import DetailChat from './pages/DetailChat/DetailChat';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/oauth/callback" element={<OAuthCallback />} />
         <Route path="register" element={<RegisterElder />} />
+        <Route path="detailchat" element={<DetailChat />} />
       </Routes>
     </Router>
   );

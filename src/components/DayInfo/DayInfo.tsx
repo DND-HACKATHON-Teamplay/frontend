@@ -2,6 +2,7 @@ import type React from 'react';
 import styles from './DayInfo.module.css';
 import typo from '../../styles/typography.module.css';
 import { mockDayStatusesRaw } from '../../data/mockData';
+import { useEffect } from 'react';
 
 interface DayInfoData {
   healthStatus: 'BAD' | 'NORMAL' | 'HAPPY' | null;
@@ -12,10 +13,16 @@ interface DayInfoData {
 interface DayInfoProps {
   selectedDate?: Date;
   dayInfo?: DayInfoData;
+  setDayInfo?: (value: DayInfoData) => void;
   onDataAvailabilityChange?: (hasData: boolean) => void;
 }
 
-const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo, onDataAvailabilityChange }) => {
+const DayInfo: React.FC<DayInfoProps> = ({
+  selectedDate,
+  dayInfo,
+  setDayInfo,
+  onDataAvailabilityChange,
+}) => {
   // 기본 데이터 (데이터가 없는 경우)
   const defaultDayInfo: DayInfoData = {
     healthStatus: null,
@@ -84,6 +91,13 @@ const DayInfo: React.FC<DayInfoProps> = ({ selectedDate, dayInfo, onDataAvailabi
   const getSleepTimeText = (sleepTime: number | null) => {
     return sleepTime === null ? '-' : `${sleepTime}시간`;
   };
+
+  useEffect(() => {
+    if (!setDayInfo) return;
+
+    const newDayInfo = getDataForSelectedDate();
+    setDayInfo(newDayInfo);
+  }, [selectedDate]);
 
   return (
     <div className={styles.dayInfoContainer}>
