@@ -42,17 +42,11 @@
 .settingsButton {
   background: none;
   border: none;
-  color: #666666;
   cursor: pointer;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
-}
-
-.settingsButton:hover {
-  background-color: #f5f5f5;
 }
 
 .settingsIcon {
