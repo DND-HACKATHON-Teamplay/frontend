@@ -6,6 +6,7 @@ import './App.css';
 import './styles/globals.css';
 import RegisterElder from './pages/RegisterElder/RegisterElder';
 import DetailChat from './pages/DetailChat/DetailChat';
+import Setting from './pages/Setting/Setting';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/oauth/callback" element={<OAuthCallback />} />
         <Route path="register" element={<RegisterElder />} />
         <Route path="detailchat" element={<DetailChat />} />
+        <Route path="setting" element={<Setting />} />
       </Routes>
     </Router>
   );

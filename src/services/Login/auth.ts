@@ -58,13 +58,6 @@ export const authAPI = {
       method: 'POST',
     });
   },
-
-  // 사용자 정보 조회
-  getUserInfo: async (): Promise<ApiResponse<UserInfo>> => {
-    return apiRequest('/api/v1/member/info', {
-      method: 'GET',
-    });
-  },
 };
 
 // OAuth 관련 함수
