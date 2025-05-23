@@ -4,6 +4,12 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+.PageWrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 .HeaderContainer {
   display: flex;
