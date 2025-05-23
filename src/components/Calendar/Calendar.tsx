@@ -1,5 +1,4 @@
 import type React from 'react';
-import { useState } from 'react';
 import styles from './Calendar.module.css';
 import type { DayStatus } from '../../data/mockData';
 import typo from '../../styles/typography.module.css';
@@ -15,7 +14,7 @@ import ring100 from '../../assets/home/100.svg';
 interface CalendarProps {
   selectedDate?: Date;
   onDateSelect?: (date: Date) => void;
-  dayStatuses?: DayStatus[]; // 서버에서 받아올 링 아이콘 상태들
+  dayStatuses?: DayStatus[];
   currentDate?: Date;
 }
 
@@ -23,10 +22,8 @@ const Calendar: React.FC<CalendarProps> = ({
   selectedDate,
   onDateSelect,
   dayStatuses = [],
-  currentDate: propCurrentDate,
+  currentDate = new Date(2025, 4, 1),
 }) => {
-  const [currentDate, setCurrentDate] = useState(propCurrentDate || new Date(2025, 4, 1)); // 2025년 5월
-
   // 링 아이콘 매핑 객체
   const ringIcons: { [key: string]: string } = {
     '0.svg': ring0,
@@ -38,7 +35,6 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   const today = new Date();
-  // 오늘 날짜를 자정으로 설정 (시간 비교 제거)
   today.setHours(0, 0, 0, 0);
 
   const year = currentDate.getFullYear();

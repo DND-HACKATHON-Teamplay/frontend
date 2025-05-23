@@ -12,34 +12,26 @@ import styles from './Home.module.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hasDataForSelectedDate, setHasDataForSelectedDate] = useState(true);
 
   // 달력 관련 state
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 4, 1)); // 2025년 5월
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24)); // 28일 선택
+  const [currentDate] = useState(new Date(2025, 4, 1));
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date(2025, 4, 24));
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
-        setIsLoggedIn(true);
-
         // 사용자 정보 조회 시도
         try {
           const result = await authAPI.getUserInfo();
           if (result.success && result.data) {
             const userInfo = result.data as UserInfo;
-            setUsername(userInfo.name || userInfo.email || '사용자');
-          } else {
-            // API 실패 시 기본값 사용
-            setUsername('사용자');
+            // username 사용하지 않으므로 제거
+            console.log('사용자:', userInfo.name || userInfo.email || '사용자');
           }
         } catch (error) {
           console.error('사용자 정보 조회 실패:', error);
-          setUsername('사용자');
         }
       } else {
         navigate('/login');
