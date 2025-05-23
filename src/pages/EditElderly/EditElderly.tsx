@@ -215,7 +215,12 @@ const EditElderly = () => {
   return (
     <div className={styles.PageWrapper}>
       <div className={styles.HeaderContainer}>
-        <img className={styles.ArrowBackIcon} src={arrowBack} alt="뒤로 가기" />
+        <img
+          className={styles.ArrowBackIcon}
+          src={arrowBack}
+          alt="뒤로 가기"
+          onClick={() => navigate(-1)}
+        />
         <span className={styles.PageTitle}>어르신 정보 수정</span>
         <span className={styles.CompleteText} onClick={editElder}>
           완료
