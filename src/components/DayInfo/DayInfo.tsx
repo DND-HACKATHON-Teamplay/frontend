@@ -1,7 +1,6 @@
 import type React from 'react';
 import styles from './DayInfo.module.css';
 import typo from '../../styles/typography.module.css';
-import { mockDayStatusesRaw } from '../../data/mockData';
 import { useEffect, useState } from 'react';
 import { dailyAPI, type DayInfoData } from '../../services/Daily/dailyAPI';
 
@@ -28,26 +27,6 @@ const DayInfo: React.FC<DayInfoProps> = ({
     mindStatus: null,
   };
 
-  // 목 데이터에서 선택된 날짜에 해당하는 데이터 찾기 (API 실패시 대체용)
-  const getMockDataForSelectedDate = (): DayInfoData => {
-    if (!selectedDate) {
-      return defaultDayInfo;
-    }
-
-    const dateString = selectedDate.toISOString().split('T')[0];
-    const dayData = mockDayStatusesRaw.find(data => data.date === dateString);
-
-    if (dayData) {
-      return {
-        healthStatus: dayData.healthStatus,
-        sleepTime: 7, // 목 데이터에서는 고정값
-        mindStatus: dayData.mindStatus,
-      };
-    }
-
-    return defaultDayInfo;
-  };
-
   // API에서 데이터 가져오기
   const fetchDataFromAPI = async (): Promise<DayInfoData> => {
     if (!selectedDate) {
@@ -64,29 +43,23 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
       if (result.success && result.data) {
         const convertedData = dailyAPI.convertToDayInfoData(result.data);
+        console.log('✅ API 데이터 변환 완료:', {
+          원본: result.data,
+          변환후: convertedData,
+        });
         onDataAvailabilityChange?.(true);
         return convertedData;
       } else {
-        // API 실패시 목 데이터 사용
-        console.warn('API 데이터 조회 실패, 목 데이터 사용:', result.message);
-        const mockData = getMockDataForSelectedDate();
-        const hasData =
-          mockData.healthStatus !== null ||
-          mockData.sleepTime !== null ||
-          mockData.mindStatus !== null;
-        onDataAvailabilityChange?.(hasData);
-        return mockData;
+        // API 실패시 기본 데이터 반환
+        console.warn('API 데이터 조회 실패:', result.message);
+        onDataAvailabilityChange?.(false);
+        return defaultDayInfo;
       }
     } catch (error) {
-      console.error('API 호출 중 오류 발생, 목 데이터 사용:', error);
+      console.error('API 호출 중 오류 발생:', error);
       setError('데이터를 불러오는 중 오류가 발생했습니다.');
-      const mockData = getMockDataForSelectedDate();
-      const hasData =
-        mockData.healthStatus !== null ||
-        mockData.sleepTime !== null ||
-        mockData.mindStatus !== null;
-      onDataAvailabilityChange?.(hasData);
-      return mockData;
+      onDataAvailabilityChange?.(false);
+      return defaultDayInfo;
     } finally {
       setIsLoading(false);
     }
@@ -128,15 +101,20 @@ const DayInfo: React.FC<DayInfoProps> = ({
 
   // 수면시간 표시 (null인 경우 '-' 표시)
   const getSleepTimeText = (sleepTime: number | null) => {
-    return sleepTime === null ? '-' : `${sleepTime}시간`;
+    if (sleepTime === null || sleepTime === undefined) return '-';
+    return `${sleepTime}시간`;
   };
 
   useEffect(() => {
-    if (!setDayInfo || !selectedDate) return;
+    if (!selectedDate) {
+      setDayInfo?.(defaultDayInfo);
+      return;
+    }
 
     const loadData = async () => {
       const newDayInfo = await fetchDataFromAPI();
-      setDayInfo(newDayInfo);
+      console.log('🔍 로드된 데이터:', newDayInfo);
+      setDayInfo?.(newDayInfo);
     };
 
     loadData();

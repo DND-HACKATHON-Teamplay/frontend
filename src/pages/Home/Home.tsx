@@ -9,7 +9,7 @@ import Calendar from '../../components/Calendar/Calendar';
 import DayInfo from '../../components/DayInfo/DayInfo';
 import ChatButton from '../../components/ChatButton/ChatButton';
 import DatePickerBottomSheet from '../../components/Calendar/Component/DatePickerBottomSheet';
-import { mockDayStatuses } from '../../data/mockData';
+import { calculateScore, type DayStatus } from '../../data/mockData';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -25,6 +25,9 @@ const Home = () => {
   // 해당 날 정보
   const [dayInfo, setDayInfo] = useState<DayInfoData>();
 
+  // 서버 데이터를 포함한 달력 상태
+  const [calendarStatuses, setCalendarStatuses] = useState<DayStatus[]>([]);
+
   useEffect(() => {
     const checkAuthStatus = async () => {
       if (tokenUtils.isLoggedIn()) {
@@ -33,7 +36,6 @@ const Home = () => {
           const result = await authAPI.getUserInfo();
           if (result.success && result.data) {
             const userInfo = result.data as UserInfo;
-            // username 사용하지 않으므로 제거
             console.log('사용자:', userInfo.name || userInfo.email || '사용자');
           }
         } catch (error) {
@@ -47,6 +49,38 @@ const Home = () => {
 
     checkAuthStatus();
   }, [navigate]);
+
+  // dayInfo가 업데이트될 때 달력 상태도 업데이트
+  useEffect(() => {
+    console.log('📅 달력 업데이트 체크:', { dayInfo, selectedDate });
+
+    if (dayInfo && selectedDate && (dayInfo.healthStatus !== null || dayInfo.mindStatus !== null)) {
+      const dateString = dailyAPI.formatDateForAPI(selectedDate);
+      const score = calculateScore(dayInfo.healthStatus, dayInfo.mindStatus);
+
+      console.log('🎯 링 아이콘 업데이트:', {
+        날짜: dateString,
+        건강상태: dayInfo.healthStatus,
+        심리상태: dayInfo.mindStatus,
+        점수: score,
+        링: `${score}.svg`,
+      });
+
+      // 기존 달력 상태에서 해당 날짜 업데이트
+      setCalendarStatuses(prev => {
+        const existing = prev.find(status => status.date === dateString);
+        if (existing) {
+          // 기존 데이터 업데이트
+          return prev.map(status =>
+            status.date === dateString ? { ...status, ringIcon: `${score}.svg` } : status,
+          );
+        } else {
+          // 새 데이터 추가
+          return [...prev, { date: dateString, ringIcon: `${score}.svg` }];
+        }
+      });
+    }
+  }, [dayInfo, selectedDate]);
 
   // 달력 날짜 선택 핸들러
   const handleDateSelect = (date: Date) => {
@@ -102,7 +136,7 @@ const Home = () => {
         <Calendar
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
-          dayStatuses={mockDayStatuses}
+          dayStatuses={calendarStatuses}
           currentDate={currentDate}
         />
 
