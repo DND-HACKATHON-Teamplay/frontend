@@ -7,12 +7,14 @@ import './styles/globals.css';
 import RegisterElder from './pages/RegisterElder/RegisterElder';
 import DetailChat from './pages/DetailChat/DetailChat';
 import Setting from './pages/Setting/Setting';
+import Splash from './pages/Splash/Splash';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Splash />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/oauth/callback" element={<OAuthCallback />} />
         <Route path="register" element={<RegisterElder />} />
