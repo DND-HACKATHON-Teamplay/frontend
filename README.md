@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+# 🏆 2025 DND HACKATHON 2등 수상
+![1](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/1.png?raw=true)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="left">
+  <img src="https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/logo.png?raw=true" width="40"/>
+  <img src="https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/typo.png?raw=true" height="40"/>
+</p> 
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+하루 한 번, 어르신의 안부를 대신 확인해주는 AI 케어콜 서비스,**똑똑**
 
-## Expanding the ESLint configuration
+건강, 기분, 수면 상태를 음성으로 묻고, 보호자에게 요약해 전달합니다.
+지역 돌봄 공백을 메우고, 멀리 있는 가족에게는 심리적 안심을 제공합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![2](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/2.png?raw=true)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+![3](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/3.png?raw=true)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![4](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/4.png?raw=true)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+![5](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/5.png?raw=true)
+
+![6](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/6.png?raw=true)
+
+![7](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/7.png?raw=true)
+
+---
+
+## 🛠️ TECH STACK
+
+![8](https://github.com/DND-HACKATHON-Teamplay/.github/blob/main/profile/assets/8.png?raw=true)
+
+## 🧑🏻‍💻 DEVELOPERS
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/ljh130334"><img width="200" src="https://github.com/user-attachments/assets/390dc6cd-a8fd-497d-b818-bfbc57963ac0" alt=""/><br /><sub><b>이지현</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/holdn2"><img width="200" src="https://avatars.githubusercontent.com/u/162245749?v=4" alt=""/><br /><sub><b>유찬영</b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
+
